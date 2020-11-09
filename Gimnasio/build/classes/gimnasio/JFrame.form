@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Gimnasio DB"/>
@@ -13,6 +13,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -81,31 +84,6 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="panel_empleado">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Empleado"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Empleado">
-                <Property name="tabTitle" type="java.lang.String" value="Empleado"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-        </Container>
         <Container class="javax.swing.JPanel" name="panel_cliente">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -118,15 +96,67 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="label_cliente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="textfield_cliente_nombre" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <Component id="label_cliente2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="textfield_cliente_direccion" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="label_cliente1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="textfield_cliente_idempleado" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_cliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_cliente_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_cliente2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_cliente_direccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                  <Component id="label_cliente1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textfield_cliente_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JTextField" name="textfield_cliente_nombre">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_cliente">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nombre:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_cliente1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdEmpleado:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_cliente_idempleado">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_cliente2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Direccion:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_cliente_direccion">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_suscripcion">
           <Constraints>
@@ -140,15 +170,135 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_suscripcion" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_suscripcion_idcliente" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="label_suscripcion2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="textfield_suscripcion_precio" min="-2" pref="154" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="label_suscripcion1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="textfield_suscripcion_idempleado" min="-2" pref="154" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_suscripcion3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_suscripcion_duracion" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_suscripcion4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_suscripcion_tipo" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_suscripcion5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_suscripcion_fecha" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="38" max="32767" attributes="0"/>
+                      <Component id="label_suscripcion6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_suscripcion_estado" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_suscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_suscripcion_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_suscripcion3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_suscripcion_duracion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_suscripcion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_suscripcion_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_suscripcion4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_suscripcion_tipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_suscripcion6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_suscripcion_estado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_suscripcion2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_suscripcion_precio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_suscripcion5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_suscripcion_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_suscripcion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdCliente:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_suscripcion_idcliente">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_suscripcion1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdEmpleado:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_suscripcion_idempleado">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_suscripcion2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Precio:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_suscripcion_precio">
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_suscripcion_duracion">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_suscripcion3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Duracion:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_suscripcion_tipo">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_suscripcion4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tipo:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_suscripcion_fecha">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_suscripcion5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fecha:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_suscripcion_estado">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_suscripcion6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Estado:"/>
+              </Properties>
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_clase">
           <Constraints>
@@ -162,15 +312,93 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="label_clase1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="textfield_clase_idhorario" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="label_clase" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="textfield_clase_idempleado" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="label_clase2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="textfield_clase_nombre" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_clase3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="textfield_clase_cupo" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="213" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_clase" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_clase_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_clase2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_clase_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_clase1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_clase_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_clase3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_clase_cupo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="45" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_clase">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdEmpleado:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_clase_idempleado">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_clase1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdHorario:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_clase_idhorario">
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_clase_nombre">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_clase2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nombre:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_clase3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cupo:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_clase_cupo">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_inscripcion">
           <Constraints>
@@ -184,15 +412,52 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="123" max="32767" attributes="0"/>
+                      <Component id="label_inscripcion1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_inscripcion_idclase" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                      <Component id="label_inscripcion" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_inscripcion_idcliente" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="76" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_inscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_inscripcion_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_inscripcion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_inscripcion_idclase" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_inscripcion">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdCliente:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_inscripcion_idcliente">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_inscripcion1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdClase:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_inscripcion_idclase">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_pago">
           <Constraints>
@@ -206,15 +471,93 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="label_pago1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_pago_idcliente" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="label_pago" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_pago_idsuscripcion" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="label_pago2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="textfield_pago_total" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="label_pago3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_pago_fecha" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="191" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_pago" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_pago_idsuscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_pago2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_pago_total" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_pago1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_pago_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_pago3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_pago_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_pago">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdSuscripcion:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_pago_idsuscripcion">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_pago1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdCliente:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_pago_idcliente">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_pago2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Total:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_pago_total">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_pago3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fecha:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_pago_fecha">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_horario">
           <Constraints>
@@ -228,15 +571,52 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="label_horario" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_horario_horainicio" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="label_horario1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_horario_horafin" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace pref="132" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_horario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_horario_horainicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_horario1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_horario_horafin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_horario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="HoraInicio:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_horario_horainicio">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_horario1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="HoraFin:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_horario_horafin">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_venta">
           <Constraints>
@@ -250,15 +630,71 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_venta1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_venta_iddetalleventa" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_venta" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_venta_idempleado" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                      <Component id="label_venta2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_venta_fecha" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace pref="185" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_venta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_venta_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_venta2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_venta_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="label_venta1" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_venta_iddetalleventa" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="59" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_venta">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdEmpleado:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_venta_idempleado">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_venta1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdDetalleVenta:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_venta2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fecha:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_venta_fecha">
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_venta_iddetalleventa">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_detalleventa">
           <Constraints>
@@ -272,15 +708,73 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="label_detalleventa1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_detalleventa_cantidad" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="label_detalleventa" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_detalleventa_idarticulo" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="label_detalleventa2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_detalleventa_total" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace pref="210" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_detalleventa" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_detalleventa_idarticulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_detalleventa2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_detalleventa_total" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_detalleventa1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_detalleventa_cantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="34" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_detalleventa">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdArticulo:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_detalleventa_idarticulo">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_detalleventa1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cantidad:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_detalleventa_cantidad">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_detalleventa2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Total:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_detalleventa_total">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_compra">
           <Constraints>
@@ -294,15 +788,70 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="label_compra1" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_compra" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="textfield_compra_idempleado" min="-2" pref="154" max="-2" attributes="0"/>
+                          <Component id="textfield_compra_iddetallecompra" min="-2" pref="154" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      <Component id="label_compra2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_compra_fecha" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace pref="176" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_compra" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_compra_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                              <Component id="label_compra2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_compra_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_compra1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_compra_iddetallecompra" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="49" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_compra">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdEmpleado:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_compra_idempleado">
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_compra_fecha">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_compra2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fecha:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_compra1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdDetalleCompra:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_compra_iddetallecompra">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_detallecompra">
           <Constraints>
@@ -316,15 +865,71 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="854" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_detallecompra1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_detallecompra_cantidad" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="label_detallecompra" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="textfield_detallecompra_idarticulo" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="label_detallecompra2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_detallecompra_total" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace pref="239" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_detallecompra" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_detallecompra_idarticulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_detallecompra2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_detallecompra_total" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_detallecompra1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_detallecompra_cantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="55" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_detallecompra">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdArticulo:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_detallecompra_idarticulo">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_detallecompra2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Total:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_detallecompra_total">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_detallecompra1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cantidad:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_detallecompra_cantidad">
+            </Component>
+          </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panel_articulo">
           <Constraints>
@@ -359,14 +964,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_articulo2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_articulo_precio" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label_articulo1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_articulo_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_articulo3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_articulo_existencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_articulo2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_articulo_precio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="label_articulo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_articulo_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="71" max="32767" attributes="0"/>
@@ -395,6 +1002,120 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_articulo_existencia">
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="panel_empleado">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Empleado"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Empleado">
+                <Property name="tabTitle" type="java.lang.String" value="Empleado"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="label_empleado1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="textfield_empleado_idhorario" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="label_empleado5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="textfield_empleado_nombre" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="label_empleado3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_empleado2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="textfield_empleado_sueldo" min="-2" pref="154" max="-2" attributes="0"/>
+                              <EmptySpace pref="63" max="32767" attributes="0"/>
+                              <Component id="label_empleado4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="48" max="32767" attributes="0"/>
+                              <Component id="textfield_empleado_dias" min="-2" pref="154" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="textfield_empleado_celular" min="-2" pref="154" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_empleado3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_empleado_sueldo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_empleado4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_empleado_dias" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_empleado5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_empleado_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_empleado2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_empleado_celular" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_empleado_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_empleado1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="59" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_idhorario">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdHorario:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_celular">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Celular:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sueldo:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_sueldo">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="D&#xed;as:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_dias">
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_nombre">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nombre:"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
