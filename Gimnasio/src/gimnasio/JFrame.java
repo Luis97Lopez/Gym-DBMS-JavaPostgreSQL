@@ -2,6 +2,7 @@ package gimnasio;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.*;
+import java.util.Vector;
 
 public class JFrame extends javax.swing.JFrame {
     String bd = "jdbc:postgresql://localhost:5432/Gimnasio";
@@ -23,6 +24,111 @@ public class JFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
+    
+    public void llenarTabla(){
+        String tabla = getSelectedTable();
+        try{
+            ResultSet resultado = null;
+            String consultaSQL = "SELECT * FROM Gimnasio." + tabla;
+            resultado = sentencia.executeQuery(consultaSQL);
+            datagrid.setModel(getTableModel(resultado));
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    public void limpiarPantalla(){
+        String tabla = getSelectedTable();
+        switch(tabla){
+            case "Articulo":
+                textfield_articulo_nombre.setText("");
+                textfield_articulo_precio.setText("");
+                textfield_articulo_existencia.setText("");
+                break;
+        }
+    }
+    
+    public void actualizaFormulario(int index){
+        String tabla = getSelectedTable();
+        switch(tabla){
+            case "Articulo":
+                String articulo_nombre = datagrid.getValueAt(index,1).toString();
+                String articulo_precio = datagrid.getValueAt(index,2).toString();
+                String articulo_existencia = datagrid.getValueAt(index,3).toString();
+                textfield_articulo_nombre.setText(articulo_nombre);
+                textfield_articulo_precio.setText(articulo_precio);
+                textfield_articulo_existencia.setText(articulo_existencia);
+                break;
+        }
+    }
+    
+    private String getInsertSentencia(String selected_table){
+        String sentencia = "INSERT INTO gimnasio." + selected_table;
+        switch(selected_table){
+            case "Articulo":
+                sentencia += " (Nombre, Precio, Existencia) "
+                        + "VALUES "
+                        + "('"+ textfield_articulo_nombre.getText() +"', "
+                        + "'"+ textfield_articulo_precio.getText() +"', "
+                        + "'"+ textfield_articulo_existencia.getText() +"')";
+                break;
+        }
+        
+        return sentencia;
+    }
+    
+    private String getUpdateSentencia(String selectedTable, int index){
+        int pk = Integer.parseInt(datagrid.getValueAt(index, 0).toString());
+        String sentencia = "UPDATE gimnasio." + selectedTable + " SET ";
+        switch(selectedTable){
+            case "Articulo":
+                sentencia += "Nombre = '"+ textfield_articulo_nombre.getText() +"', "
+                        + "Precio = '"+ textfield_articulo_precio.getText() +"', "
+                        + "Existencia='"+ textfield_articulo_existencia.getText() +"'";
+                break;
+        }
+        
+        sentencia += " WHERE Id" + selectedTable +"=" + pk;
+        return sentencia;
+    }
+    
+    private String getDeleteSentencia(String selectedTable, int index){
+        int pk = Integer.parseInt(datagrid.getValueAt(index, 0).toString());
+        String sentencia =  "DELETE FROM gimnasio." + selectedTable + 
+                " WHERE Id" + selectedTable + "=" + pk;
+        return sentencia;
+    }
+    
+    private String getSelectedTable(){
+        return tabs.getTitleAt(tabs.getSelectedIndex());
+    }
+    
+    public DefaultTableModel getTableModel(ResultSet rs) throws SQLException{
+        ResultSetMetaData metaData = rs.getMetaData();
+
+        Vector<String> columnNames = new Vector<String>();
+        int columnCount = metaData.getColumnCount();
+        for (int column = 1; column <= columnCount; column++) {
+            columnNames.add(metaData.getColumnName(column));
+        }
+
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        while (rs.next()) {
+            Vector<Object> vector = new Vector<Object>();
+            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                vector.add(rs.getObject(columnIndex));
+            }
+            data.add(vector);
+        }
+        return new DefaultTableModel(data, columnNames){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+    }
 
     
     //              Código generado por NetBeans ↓
@@ -32,7 +138,7 @@ public class JFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tab = new javax.swing.JTabbedPane();
+        tabs = new javax.swing.JTabbedPane();
         panel_empleado = new javax.swing.JPanel();
         panel_cliente = new javax.swing.JPanel();
         panel_suscripcion = new javax.swing.JPanel();
@@ -40,13 +146,19 @@ public class JFrame extends javax.swing.JFrame {
         panel_inscripcion = new javax.swing.JPanel();
         panel_pago = new javax.swing.JPanel();
         panel_horario = new javax.swing.JPanel();
-        panel_articulo = new javax.swing.JPanel();
         panel_venta = new javax.swing.JPanel();
         panel_detalleventa = new javax.swing.JPanel();
         panel_compra = new javax.swing.JPanel();
         panel_detallecompra = new javax.swing.JPanel();
-        datagrid = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        panel_articulo = new javax.swing.JPanel();
+        label_articulo1 = new javax.swing.JLabel();
+        textfield_articulo_nombre = new javax.swing.JTextField();
+        label_articulo2 = new javax.swing.JLabel();
+        textfield_articulo_precio = new javax.swing.JTextField();
+        label_articulo3 = new javax.swing.JLabel();
+        textfield_articulo_existencia = new javax.swing.JTextField();
+        menu = new javax.swing.JScrollPane();
+        datagrid = new javax.swing.JTable();
         btn_agregar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
@@ -56,8 +168,13 @@ public class JFrame extends javax.swing.JFrame {
         setForeground(java.awt.Color.lightGray);
         setResizable(false);
 
-        tab.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tab.setToolTipText("");
+        tabs.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tabs.setToolTipText("");
+        tabs.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabsStateChanged(evt);
+            }
+        });
 
         panel_empleado.setToolTipText("Empleado");
 
@@ -69,10 +186,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_empleadoLayout.setVerticalGroup(
             panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Empleado", panel_empleado);
+        tabs.addTab("Empleado", panel_empleado);
 
         javax.swing.GroupLayout panel_clienteLayout = new javax.swing.GroupLayout(panel_cliente);
         panel_cliente.setLayout(panel_clienteLayout);
@@ -82,10 +199,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_clienteLayout.setVerticalGroup(
             panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Cliente", panel_cliente);
+        tabs.addTab("Cliente", panel_cliente);
 
         javax.swing.GroupLayout panel_suscripcionLayout = new javax.swing.GroupLayout(panel_suscripcion);
         panel_suscripcion.setLayout(panel_suscripcionLayout);
@@ -95,10 +212,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_suscripcionLayout.setVerticalGroup(
             panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Suscripcion", panel_suscripcion);
+        tabs.addTab("Suscripcion", panel_suscripcion);
 
         javax.swing.GroupLayout panel_claseLayout = new javax.swing.GroupLayout(panel_clase);
         panel_clase.setLayout(panel_claseLayout);
@@ -108,10 +225,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_claseLayout.setVerticalGroup(
             panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Clase", panel_clase);
+        tabs.addTab("Clase", panel_clase);
 
         javax.swing.GroupLayout panel_inscripcionLayout = new javax.swing.GroupLayout(panel_inscripcion);
         panel_inscripcion.setLayout(panel_inscripcionLayout);
@@ -121,10 +238,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_inscripcionLayout.setVerticalGroup(
             panel_inscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Inscripcion", panel_inscripcion);
+        tabs.addTab("Inscripcion", panel_inscripcion);
 
         javax.swing.GroupLayout panel_pagoLayout = new javax.swing.GroupLayout(panel_pago);
         panel_pago.setLayout(panel_pagoLayout);
@@ -134,10 +251,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_pagoLayout.setVerticalGroup(
             panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Pago", panel_pago);
+        tabs.addTab("Pago", panel_pago);
 
         javax.swing.GroupLayout panel_horarioLayout = new javax.swing.GroupLayout(panel_horario);
         panel_horario.setLayout(panel_horarioLayout);
@@ -147,23 +264,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_horarioLayout.setVerticalGroup(
             panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Horario", panel_horario);
-
-        javax.swing.GroupLayout panel_articuloLayout = new javax.swing.GroupLayout(panel_articulo);
-        panel_articulo.setLayout(panel_articuloLayout);
-        panel_articuloLayout.setHorizontalGroup(
-            panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 854, Short.MAX_VALUE)
-        );
-        panel_articuloLayout.setVerticalGroup(
-            panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
-        );
-
-        tab.addTab("Articulo", panel_articulo);
+        tabs.addTab("Horario", panel_horario);
 
         javax.swing.GroupLayout panel_ventaLayout = new javax.swing.GroupLayout(panel_venta);
         panel_venta.setLayout(panel_ventaLayout);
@@ -173,10 +277,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_ventaLayout.setVerticalGroup(
             panel_ventaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Venta", panel_venta);
+        tabs.addTab("Venta", panel_venta);
 
         javax.swing.GroupLayout panel_detalleventaLayout = new javax.swing.GroupLayout(panel_detalleventa);
         panel_detalleventa.setLayout(panel_detalleventaLayout);
@@ -186,10 +290,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_detalleventaLayout.setVerticalGroup(
             panel_detalleventaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("DetalleVenta", panel_detalleventa);
+        tabs.addTab("DetalleVenta", panel_detalleventa);
 
         javax.swing.GroupLayout panel_compraLayout = new javax.swing.GroupLayout(panel_compra);
         panel_compra.setLayout(panel_compraLayout);
@@ -199,10 +303,10 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_compraLayout.setVerticalGroup(
             panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("Compra", panel_compra);
+        tabs.addTab("Compra", panel_compra);
 
         javax.swing.GroupLayout panel_detallecompraLayout = new javax.swing.GroupLayout(panel_detallecompra);
         panel_detallecompra.setLayout(panel_detallecompraLayout);
@@ -212,68 +316,182 @@ public class JFrame extends javax.swing.JFrame {
         );
         panel_detallecompraLayout.setVerticalGroup(
             panel_detallecompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 149, Short.MAX_VALUE)
+            .addGap(0, 158, Short.MAX_VALUE)
         );
 
-        tab.addTab("DetalleCompra", panel_detallecompra);
+        tabs.addTab("DetalleCompra", panel_detallecompra);
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
+        label_articulo1.setText("Nombre:");
+
+        label_articulo2.setText("Precio:");
+
+        label_articulo3.setText("Existencia:");
+
+        javax.swing.GroupLayout panel_articuloLayout = new javax.swing.GroupLayout(panel_articulo);
+        panel_articulo.setLayout(panel_articuloLayout);
+        panel_articuloLayout.setHorizontalGroup(
+            panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_articuloLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(label_articulo1)
+                .addGap(29, 29, 29)
+                .addComponent(textfield_articulo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(label_articulo2)
+                .addGap(29, 29, 29)
+                .addComponent(textfield_articulo_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(label_articulo3)
+                .addGap(18, 18, 18)
+                .addComponent(textfield_articulo_existencia, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
+        );
+        panel_articuloLayout.setVerticalGroup(
+            panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_articuloLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_articulo2)
+                    .addComponent(textfield_articulo_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_articulo1)
+                    .addComponent(textfield_articulo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_articulo3)
+                        .addComponent(textfield_articulo_existencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+
+        tabs.addTab("Articulo", panel_articulo);
+
+        datagrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        datagrid.setViewportView(tabla);
+        datagrid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                datagridMouseClicked(evt);
+            }
+        });
+        menu.setViewportView(datagrid);
 
         btn_agregar.setText("Agregar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
 
         btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
 
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(datagrid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98)
-                        .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96)
+                .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(tab, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_agregar)
                     .addComponent(btn_modificar)
-                    .addComponent(btn_eliminar)
-                    .addComponent(btn_agregar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(datagrid, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_eliminar))
+                .addGap(49, 49, 49)
+                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
+        llenarTabla();
+    }//GEN-LAST:event_tabsStateChanged
+
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        try{
+            String sentenciaSQL = getInsertSentencia(getSelectedTable());
+            sentencia.execute(sentenciaSQL);
+            JOptionPane.showMessageDialog(this, "Agregado correctamente");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        llenarTabla();
+        limpiarPantalla();
+    }//GEN-LAST:event_btn_agregarActionPerformed
+
+    private void datagridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datagridMouseClicked
+        int idx = datagrid.getSelectedRow();
+           
+        if(idx != -1){
+            actualizaFormulario(idx);
+        }
+    }//GEN-LAST:event_datagridMouseClicked
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        int idx = datagrid.getSelectedRow();
+        
+        if(idx != -1){
+            try{
+                String sentenciaSQL = getUpdateSentencia(getSelectedTable(), idx);
+                sentencia.execute(sentenciaSQL);
+                JOptionPane.showMessageDialog(this, "Modificado correctamente");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            llenarTabla();
+            limpiarPantalla();
+        }
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        int idx = datagrid.getSelectedRow();
+        
+        if(idx != -1){
+            try{
+                String sentenciaSQL = getDeleteSentencia(getSelectedTable(), idx);
+
+                sentencia.execute(sentenciaSQL);
+                JOptionPane.showMessageDialog(this, "Eliminado correctamente");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            llenarTabla();
+            limpiarPantalla();
+        }        
+    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -311,7 +529,11 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_modificar;
-    private javax.swing.JScrollPane datagrid;
+    private javax.swing.JTable datagrid;
+    private javax.swing.JLabel label_articulo1;
+    private javax.swing.JLabel label_articulo2;
+    private javax.swing.JLabel label_articulo3;
+    private javax.swing.JScrollPane menu;
     private javax.swing.JPanel panel_articulo;
     private javax.swing.JPanel panel_clase;
     private javax.swing.JPanel panel_cliente;
@@ -324,7 +546,9 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_pago;
     private javax.swing.JPanel panel_suscripcion;
     private javax.swing.JPanel panel_venta;
-    private javax.swing.JTabbedPane tab;
-    private javax.swing.JTable tabla;
+    private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTextField textfield_articulo_existencia;
+    private javax.swing.JTextField textfield_articulo_nombre;
+    private javax.swing.JTextField textfield_articulo_precio;
     // End of variables declaration//GEN-END:variables
 }

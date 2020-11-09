@@ -24,8 +24,12 @@ CREATE TABLE gimnasio.Horario(
 CREATE TABLE gimnasio.Articulo(
 	IdArticulo BIGSERIAL NOT NULL,
 	Nombre VARCHAR(40) NOT NULL,
-	Precio NUMERIC(2) NOT NULL,
-	Existencia BOOLEAN NOT NULL,
+	Precio DECIMAL NOT NULL,
+	Existencia INT NOT NULL,
 	
 	CONSTRAINT PK_Articulo PRIMARY KEY (IdArticulo)
 );
+
+INSERT INTO gimnasio.Articulo (Nombre, Precio, Existencia)
+VALUES ('Pesas', 1000.1, '1');
+
