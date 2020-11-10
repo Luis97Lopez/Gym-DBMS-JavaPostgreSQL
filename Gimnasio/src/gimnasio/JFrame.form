@@ -117,16 +117,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_cliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_cliente_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="label_cliente1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_cliente_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="label_cliente2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_cliente_direccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                                  <Component id="label_cliente1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textfield_cliente_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_cliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_cliente_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="74" max="32767" attributes="0"/>
@@ -347,21 +349,25 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_clase" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_clase_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_clase2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_clase_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_clase" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_clase_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_clase1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_clase_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_clase3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_clase_cupo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_clase1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_clase_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="45" max="32767" attributes="0"/>
@@ -429,12 +435,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="76" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_inscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_inscripcion_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_inscripcion1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_inscripcion_idclase" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_inscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_inscripcion_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
@@ -506,21 +514,25 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_pago" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_pago_idsuscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_pago2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_pago_total" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_pago" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_pago_idsuscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_pago1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_pago_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_pago3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_pago_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_pago1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_pago_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="39" max="32767" attributes="0"/>
@@ -588,12 +600,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="74" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_horario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_horario_horainicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_horario1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_horario_horafin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_horario" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_horario_horainicio" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
@@ -734,12 +748,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_detalleventa" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_detalleventa_idarticulo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_detalleventa2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_detalleventa_total" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_detalleventa" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_detalleventa_idarticulo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -811,12 +827,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_compra" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_compra_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_compra2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_compra_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_compra" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_compra_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
@@ -1070,11 +1088,13 @@
                           <Component id="textfield_empleado_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_empleado2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_empleado_celular" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_empleado_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="label_empleado1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_empleado2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_empleado_celular" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_empleado_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="59" max="32767" attributes="0"/>
                   </Group>
