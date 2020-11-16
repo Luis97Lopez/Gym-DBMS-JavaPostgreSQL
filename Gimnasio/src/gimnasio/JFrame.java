@@ -48,6 +48,67 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_articulo_precio.setText("");
                 textfield_articulo_existencia.setText("");
                 break;
+            case "Horario":
+                textfield_horario_horainicio.setText("");
+                textfield_horario_horafin.setText("");
+            break;
+            case "Empleado":
+                textfield_empleado_idhorario.setText("");
+                textfield_empleado_nombre.setText("");
+                textfield_empleado_celular.setText("");
+                textfield_empleado_sueldo.setText("");
+                textfield_empleado_dias.setText("");
+            break;
+            case "Cliente":
+                textfield_cliente_nombre.setText("");
+                textfield_cliente_direccion.setText("");
+                textfield_cliente_idempleado.setText("");
+            break;
+            case "Suscripcion":
+                textfield_suscripcion_idempleado.setText("");
+                textfield_suscripcion_idcliente.setText("");
+                textfield_suscripcion_precio.setText("");
+                textfield_suscripcion_duracion.setText("");
+                textfield_suscripcion_tipo.setText("");
+                textfield_suscripcion_fecha.setText("");
+                textfield_suscripcion_estado.setText("");
+            break;
+            case "Clase":
+                textfield_clase_idempleado.setText("");
+                textfield_clase_idhorario.setText("");
+                textfield_clase_nombre.setText("");
+                textfield_clase_cupo.setText("");
+            break;
+            case "Inscripcion":
+                textfield_inscripcion_idclase.setText("");
+                textfield_inscripcion_idcliente.setText("");
+            break;
+            case "Pago":
+                textfield_pago_idsuscripcion.setText("");
+                textfield_pago_idcliente.setText("");
+                textfield_pago_total.setText("");
+                textfield_pago_fecha.setText("");
+            break;
+            case "Venta":
+                textfield_venta_idempleado.setText("");
+                textfield_venta_iddetalleventa.setText("");
+                textfield_venta_fecha.setText("");
+            break;
+            case "DetalleVenta":
+                textfield_detalleventa_idarticulo.setText("");
+                textfield_detalleventa_cantidad.setText("");
+                textfield_detalleventa_total.setText("");
+            break;
+            case "Compra":
+                textfield_compra_idempleado.setText("");
+                textfield_compra_iddetallecompra.setText("");
+                textfield_compra_fecha.setText("");
+            break;
+            case "DetalleCompra":
+                textfield_detallecompra_idarticulo.setText("");
+                textfield_detallecompra_cantidad.setText("");
+                textfield_detallecompra_total.setText("");
+            break;
         }
     }
     
@@ -83,6 +144,83 @@ public class JFrame extends javax.swing.JFrame {
                         + "('"+ textfield_horario_horainicio.getText() +"', "
                         + "'"+ textfield_horario_horafin.getText() +"')";
                 break;
+            case "Empleado":
+                sentencia += "(idhorario, nombre, celular, sueldo, dias) "
+                    + "VALUES"
+                    + "('"+ textfield_empleado_idhorario.getText() +"', "
+                    + "'"+ textfield_empleado_nombre.getText() +"', "
+                    + "'"+ textfield_empleado_celular.getText() +"', "
+                    + "'"+ textfield_empleado_sueldo.getText() +"', "
+                    + "'"+ textfield_empleado_dias.getText() +"')";
+            break;
+            case "Cliente":
+                sentencia += "(nombre, direccion, idempleado) "
+                + "VALUES"
+                + "('"+ textfield_cliente_nombre.getText() +"', "
+                + "'"+ textfield_cliente_direccion.getText() +"', "
+                + "'"+ textfield_cliente_idempleado.getText() +"')";
+            break;
+            case "Suscripcion":
+                sentencia += "(idempleado, idcliente, precio, duracion, tipo, fecha, estado) "
+                + "VALUES"
+                + "('"+ textfield_suscripcion_idempleado.getText() +"', "
+                + "'"+ textfield_suscripcion_idcliente.getText() +"', "
+                + "'"+ textfield_suscripcion_precio.getText() +"', "
+                + "'"+ textfield_suscripcion_duracion.getText() +"', "
+                + "'"+ textfield_suscripcion_tipo.getText() +"', "
+                + "'"+ textfield_suscripcion_fecha.getText() +"', "
+                + "'"+ textfield_suscripcion_estado.getText() +"')";
+            break;
+            case "Clase":
+                sentencia += "(idempleado, idhorario, nombre, cupo) "
+                + "VALUES"
+                + "('"+ textfield_clase_idempleado.getText() +"', "
+                + "'"+ textfield_clase_idhorario.getText() +"', "
+                + "'"+ textfield_clase_nombre.getText() +"', "
+                + "'"+ textfield_clase_cupo.getText() +"')";
+            break;
+            case "Inscripcion":
+                sentencia += "(idclase, idcliente) "
+                + "VALUES"
+                + "('"+ textfield_inscripcion_idclase.getText() +"', "
+                + "'"+ textfield_inscripcion_idcliente.getText() +"')";
+            break;
+            case "Pago":
+                sentencia += "(idsuscripcion, idcliente, total, fecha) "
+                + "VALUES"
+                + "('"+ textfield_pago_idsuscripcion.getText() +"', "
+                + "'"+ textfield_pago_idcliente.getText() +"', "
+                + "'"+ textfield_pago_total.getText() +"', "
+                + "'"+ textfield_pago_fecha.getText() +"')";
+            break;
+            case "Venta":
+                sentencia += "(idempleado, iddetalleventa, fecha) "
+                + "VALUES"
+                + "('"+ textfield_venta_idempleado.getText() +"', "
+                + "'"+ textfield_venta_iddetalleventa.getText() +"', "
+                + "'"+ textfield_venta_fecha.getText() +"')";
+            break;
+            case "DetalleVenta":
+                sentencia += "(idarticulo, cantidad, total) "
+                + "VALUES"
+                + "('"+ textfield_detalleventa_idarticulo.getText() +"', "
+                + "'"+ textfield_detalleventa_cantidad.getText() +"', "
+                + "'"+ textfield_detalleventa_total.getText() +"')";
+            break;
+            case "Compra":
+                sentencia += "(idempleado, iddetallecompra, fecha) "
+                + "VALUES"
+                + "('"+ textfield_compra_idempleado.getText() +"', "
+                + "'"+ textfield_compra_iddetallecompra.getText() +"', "
+                + "'"+ textfield_compra_fecha.getText() +"')";
+            break;
+            case "DetalleCompra":
+                sentencia += "(idarticulo, cantidad, total) "
+                + "VALUES"
+                + "('"+ textfield_detallecompra_idarticulo.getText() +"', "
+                + "'"+ textfield_detallecompra_cantidad.getText() +"', "
+                + "'"+ textfield_detallecompra_total.getText() +"')";
+            break;
         }
         
         return sentencia;
@@ -98,6 +236,67 @@ public class JFrame extends javax.swing.JFrame {
                         + "Precio = '"+ textfield_articulo_precio.getText() +"', "
                         + "Existencia='"+ textfield_articulo_existencia.getText() +"'";
                 break;
+            case "Horario":
+                sentencia += "horainicio = '"+ textfield_horario_horainicio.getText() +"', "
+                        + "horafin='"+ textfield_horario_horafin.getText() +"'";
+                break;
+            case "Empleado":
+                sentencia += "idhorario = '"+ textfield_empleado_idhorario.getText() +"', "
+                        + "nombre = '"+ textfield_empleado_nombre.getText() +"', "
+                        + "celular = '"+ textfield_empleado_celular.getText() +"', "
+                        + "sueldo = '"+ textfield_empleado_sueldo.getText() +"', "
+                        + "dias='"+ textfield_empleado_dias.getText() +"'";
+                break;
+            case "Cliente":
+                sentencia += "Nombre = '"+ textfield_cliente_nombre.getText() +"', "
+                + "Direccion = '"+ textfield_cliente_direccion.getText() +"', "
+                + "idempleado = '"+ textfield_cliente_idempleado.getText() +"'";
+            break;
+            case "Suscripcion":
+                sentencia += "idempleado = '"+ textfield_suscripcion_idempleado.getText() +"', "
+                + "idcliente = '"+ textfield_suscripcion_idcliente.getText() +"', "
+                + "Precio = '"+ textfield_suscripcion_precio.getText() +"', "
+                + "Duracion = '"+ textfield_suscripcion_duracion.getText() +"', "
+                + "tipo = '"+ textfield_suscripcion_tipo.getText() +"', "
+                + "fecha = '"+ textfield_suscripcion_fecha.getText() +"', "
+                + "estado = '"+ textfield_suscripcion_estado.getText() +"'";
+            break;
+            case "Clase":
+                sentencia += "idempleado = '"+ textfield_clase_idempleado.getText() +"', "
+                + "idhorario = '"+textfield_clase_idhorario.getText() +"', "
+                + "nombre = '"+textfield_clase_nombre.getText() +"', "
+                + "cupo = '"+textfield_clase_cupo.getText() +"'";
+            break;
+            case "Inscripcion":
+                sentencia += "idclase = '"+ textfield_inscripcion_idclase.getText() +"', "
+                + "idcliente = '"+textfield_inscripcion_idcliente.getText() +"'";
+            break;
+            case "Pago":
+                sentencia += "idsuscripcion = '"+ textfield_pago_idsuscripcion.getText() +"', "
+                + "idcliente = '"+textfield_pago_idcliente.getText() +"', "
+                + "total = '"+textfield_pago_total.getText() +"', "
+                + "fecha = '"+textfield_pago_fecha.getText() +"'";
+            break;
+            case "Venta":
+                sentencia += "idempleado = '"+ textfield_venta_idempleado.getText() +"', "
+                + "iddetalleventa = '"+textfield_venta_iddetalleventa.getText() +"', "
+                + "fecha = '"+textfield_venta_fecha.getText() +"'";
+            break;
+            case "DetalleVenta":
+                sentencia += "idarticulo = '"+ textfield_detalleventa_idarticulo.getText() +"', "
+                + "cantidad = '"+textfield_detalleventa_cantidad.getText() +"', "
+                + "total = '"+textfield_detalleventa_total.getText() +"'";
+            break;
+            case "Compra":
+                sentencia += "idempleado = '"+ textfield_compra_idempleado.getText() +"', "
+                + "iddetallecompra = '"+textfield_compra_iddetallecompra.getText() +"', "
+                + "fecha = '"+textfield_compra_fecha.getText() +"'";
+            break;
+            case "DetalleCompra":
+                sentencia += "idarticulo = '"+ textfield_detallecompra_idarticulo.getText() +"', "
+                + "cantidad = '"+textfield_detallecompra_cantidad.getText() +"', "
+                + "total = '"+textfield_detallecompra_total.getText() +"'";
+            break;
         }
         
         sentencia += " WHERE Id" + selectedTable +"=" + pk;
