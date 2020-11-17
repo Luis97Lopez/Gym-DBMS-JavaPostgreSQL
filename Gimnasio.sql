@@ -162,6 +162,17 @@ CREATE TABLE gimnasio.Compra(
 	CONSTRAINT FK_DetalleCompra FOREIGN KEY (IdDetalleCompra) REFERENCES gimnasio.DetalleCompra(IdDetalleCompra)
 
 );
+
+alter table gimnasio.Empleado
+add constraint CK_SueldoEmpleado
+check (Sueldo = 1500 or Sueldo = 2000 or Sueldo = 3000);
+ 
+alter table gimnasio.Suscripcion
+add constraint CK_TipoSuscripcion
+check (Tipo = 'Semanal' or Tipo = 'Mensual' or Tipo = 'Semestral' or Tipo = 'Anual');
+
+CREATE UNIQUE INDEX UK_NombreClase ON gimnasio.Clase (Nombre);
+
 INSERT INTO gimnasio.Articulo (Nombre, Precio, Existencia)
 VALUES ('Pesas', 1000.1, '1');
 
