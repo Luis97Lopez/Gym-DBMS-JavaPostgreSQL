@@ -43,7 +43,7 @@ CREATE TABLE gimnasio.Cliente(
 	Direccion VARCHAR(70) NOT NULL,
 
 	CONSTRAINT PK_Cliente PRIMARY KEY (IdCliente),
-	CONSTRAINT FK_Empleado3 FOREIGN KEY (IdEmpleado)REFERENCES gimnasio.Empleado(IdEmpleado),
+	CONSTRAINT FK_Empleado3 FOREIGN KEY (IdEmpleado)REFERENCES gimnasio.Empleado(IdEmpleado)
 
 );
 
@@ -171,7 +171,7 @@ alter table gimnasio.Suscripcion
 add constraint CK_TipoSuscripcion
 check (Tipo = 'Semanal' or Tipo = 'Mensual' or Tipo = 'Semestral' or Tipo = 'Anual');
 
-CREATE UNIQUE INDEX UK_NombreClase ON gimnasio.Clase (Nombre);
+CREATE UNIQUE INDEX UK_CelularEmpleado ON gimnasio.Empleado (Celular);
 
 INSERT INTO gimnasio.Articulo (Nombre, Precio, Existencia)
 VALUES ('Pesas', 1000.1, '1');
