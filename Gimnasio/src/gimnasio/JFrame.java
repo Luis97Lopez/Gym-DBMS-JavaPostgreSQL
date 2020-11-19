@@ -25,12 +25,15 @@ public class JFrame extends javax.swing.JFrame {
         }
     }
     
+    //              Métodos Auxiliares para la GridView y Componentes ↓
+    // ---------------------------------------------------------
+    
     public void llenarTabla(){
         String tabla = getSelectedTable();
         try{
             if(sentencia != null){
                 ResultSet resultado = null;
-                String consultaSQL = "SELECT * FROM Gimnasio." + tabla;
+                String consultaSQL = getSelectSentencia(tabla);
                 resultado = sentencia.executeQuery(consultaSQL);
                 datagrid.setModel(getTableModel(resultado));
             }
@@ -62,11 +65,11 @@ public class JFrame extends javax.swing.JFrame {
             case "Cliente":
                 textfield_cliente_nombre.setText("");
                 textfield_cliente_direccion.setText("");
-                textfield_cliente_idempleado.setText("");
+                combobox_cliente_idempleado.setSelectedIndex(0);
             break;
             case "Suscripcion":
-                textfield_suscripcion_idempleado.setText("");
-                textfield_suscripcion_idcliente.setText("");
+                combobox_suscripcion_idempleado.setSelectedIndex(0);
+                combobox_suscripcion_idcliente.setSelectedIndex(0);
                 textfield_suscripcion_precio.setText("");
                 textfield_suscripcion_duracion.setText("");
                 textfield_suscripcion_tipo.setText("");
@@ -112,6 +115,28 @@ public class JFrame extends javax.swing.JFrame {
         }
     }
     
+    public void actualizaComponentes(){
+        String tabla = getSelectedTable();
+        String query;
+        int index_info_column = 0;
+        
+        switch(tabla){
+            case "Cliente":
+                query = getQueryOfComboBox("Empleado");
+                combobox_cliente_idempleado.
+                        setModel(convertQueryToComboBoxModel(query));
+                break;
+            case "Suscripcion":
+                query = getQueryOfComboBox("Empleado");
+                combobox_suscripcion_idempleado.
+                        setModel(convertQueryToComboBoxModel(query));
+                
+                query = getQueryOfComboBox("Cliente");
+                combobox_suscripcion_idcliente.
+                        setModel(convertQueryToComboBoxModel(query));
+        }
+    }
+    
     public void actualizaFormulario(int index){
         String tabla = getSelectedTable();
         switch(tabla){
@@ -123,7 +148,100 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_articulo_precio.setText(articulo_precio);
                 textfield_articulo_existencia.setText(articulo_existencia);
                 break;
+            case "Cliente":
+                String cliente_nombre = datagrid.getValueAt(index, 1).toString();
+                String cliente_direccion = datagrid.getValueAt(index, 2).toString();;
+                String cliente_idempleado = datagrid.getValueAt(index, 3).toString();;
+                
+                
+                textfield_cliente_nombre.setText(cliente_nombre);
+                textfield_cliente_direccion.setText(cliente_direccion);
+                combobox_cliente_idempleado.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_cliente_idempleado, cliente_idempleado ));
+                break;
+            case "Suscripcion":
+                combobox_suscripcion_idempleado.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_suscripcion_idempleado, 
+                                datagrid.getValueAt(index, 1).toString()));
+                combobox_suscripcion_idcliente.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_suscripcion_idcliente, 
+                                datagrid.getValueAt(index, 3).toString()));
+                textfield_suscripcion_precio.setText(
+                        datagrid.getValueAt(index, 5).toString());
+                textfield_suscripcion_duracion.setText(
+                        datagrid.getValueAt(index, 6).toString());
+                textfield_suscripcion_tipo.setText(
+                        datagrid.getValueAt(index, 7).toString());
+                textfield_suscripcion_fecha.setText(
+                        datagrid.getValueAt(index, 8).toString());
+                textfield_suscripcion_estado.setText(
+                        datagrid.getValueAt(index, 9).toString());
+                break;
         }
+    }
+    
+    private String getSelectedTable(){
+        return tabs.getTitleAt(tabs.getSelectedIndex());
+    }
+    
+    public DefaultTableModel getTableModel(ResultSet rs) throws SQLException{
+        // Método genérico que devuelve la tabla con sus respectivos nombres
+        // de sus columnas.
+        ResultSetMetaData metaData = rs.getMetaData();
+
+        Vector<String> columnNames = new Vector<String>();
+        int columnCount = metaData.getColumnCount();
+        for (int column = 1; column <= columnCount; column++) {
+            columnNames.add(metaData.getColumnName(column));
+        }
+
+        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+        while (rs.next()) {
+            Vector<Object> vector = new Vector<Object>();
+            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                vector.add(rs.getObject(columnIndex));
+            }
+            data.add(vector);
+        }
+        return new DefaultTableModel(data, columnNames){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+    }
+    
+    
+    //              Métodos get Sentencias ↓
+    // ---------------------------------------------------------
+    
+    private String getSelectSentencia(String selected_table){
+        String sentencia = "SELECT * FROM gimnasio." + selected_table;
+        
+        switch(selected_table){
+            case "Cliente":
+                sentencia = "SELECT c.IdCliente, c.Nombre, c.Direccion, c.IdEmpleado, "
+                        + "e.Nombre AS NombreEmpleado "
+                        + "FROM gimnasio.Cliente c "
+                        + "INNER JOIN gimnasio.Empleado e "
+                        + "ON c.IdEmpleado = e.IdEmpleado";
+                break;
+            case "Suscripcion":
+                sentencia = "SELECT s.IdSuscripcion, s.IdEmpleado, "
+                        + "e.Nombre NombreEmpleado, s.IdCliente, c.Nombre "
+                        + "NombreCliente, s.Precio, s.Duracion, s.Tipo, s.Fecha, "
+                        + "s.Estado "
+                        + "FROM gimnasio.Suscripcion s "
+                        + "INNER JOIN gimnasio.Empleado e "
+                        + "ON s.IdEmpleado = e.IdEmpleado "
+                        + "INNER JOIN gimnasio.Cliente c "
+                        + "ON s.IdEmpleado = c.IdEmpleado";
+                break;
+                
+        }
+        
+        return sentencia;
     }
     
     private String getInsertSentencia(String selected_table){
@@ -158,13 +276,13 @@ public class JFrame extends javax.swing.JFrame {
                 + "VALUES"
                 + "('"+ textfield_cliente_nombre.getText() +"', "
                 + "'"+ textfield_cliente_direccion.getText() +"', "
-                + "'"+ textfield_cliente_idempleado.getText() +"')";
+                + "'"+ getIDOfCombobox(combobox_cliente_idempleado) +"')";
             break;
             case "Suscripcion":
                 sentencia += "(idempleado, idcliente, precio, duracion, tipo, fecha, estado) "
                 + "VALUES"
-                + "('"+ textfield_suscripcion_idempleado.getText() +"', "
-                + "'"+ textfield_suscripcion_idcliente.getText() +"', "
+                + "('"+ getIDOfCombobox(combobox_suscripcion_idempleado) +"', "
+                + "'"+ getIDOfCombobox(combobox_suscripcion_idcliente) +"', "
                 + "'"+ textfield_suscripcion_precio.getText() +"', "
                 + "'"+ textfield_suscripcion_duracion.getText() +"', "
                 + "'"+ textfield_suscripcion_tipo.getText() +"', "
@@ -250,11 +368,12 @@ public class JFrame extends javax.swing.JFrame {
             case "Cliente":
                 sentencia += "Nombre = '"+ textfield_cliente_nombre.getText() +"', "
                 + "Direccion = '"+ textfield_cliente_direccion.getText() +"', "
-                + "idempleado = '"+ textfield_cliente_idempleado.getText() +"'";
+                + "idempleado = '"+ getIDOfCombobox(combobox_cliente_idempleado) +"'";
+                        ;
             break;
             case "Suscripcion":
-                sentencia += "idempleado = '"+ textfield_suscripcion_idempleado.getText() +"', "
-                + "idcliente = '"+ textfield_suscripcion_idcliente.getText() +"', "
+                sentencia += "idempleado = '"+ getIDOfCombobox(combobox_suscripcion_idempleado) +"', "
+                + "idcliente = '"+ getIDOfCombobox(combobox_suscripcion_idcliente) +"', "
                 + "Precio = '"+ textfield_suscripcion_precio.getText() +"', "
                 + "Duracion = '"+ textfield_suscripcion_duracion.getText() +"', "
                 + "tipo = '"+ textfield_suscripcion_tipo.getText() +"', "
@@ -310,39 +429,77 @@ public class JFrame extends javax.swing.JFrame {
         return sentencia;
     }
     
-    private String getSelectedTable(){
-        return tabs.getTitleAt(tabs.getSelectedIndex());
+    //              Métodos para manejo de ComboBox ↓
+    // ---------------------------------------------------------
+    
+    public String getQueryOfComboBox(String tabla){
+        String query = "";
+        switch(tabla){
+            case "Empleado":
+                query = "SELECT IdEmpleado, Nombre FROM gimnasio.Empleado";
+                break;
+            case "Cliente":
+                query = "SELECT IdCliente, Nombre FROM gimnasio.Cliente";
+                break;
+        }
+        return query;
+    }
+  
+    public DefaultComboBoxModel convertQueryToComboBoxModel(String query){
+        Vector<String> data = new Vector<String>();
+        data.add(" ");
+        try{
+            if(sentencia != null){
+                ResultSet rs = null;
+                rs = sentencia.executeQuery(query);
+                
+                ResultSetMetaData metaData = rs.getMetaData();
+                
+                int columnCount = metaData.getColumnCount();
+                
+                while (rs.next()) {
+                    String s = "";
+                    for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                        s += rs.getObject(columnIndex) + " ";
+                    }
+                    data.add(s);
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        return new DefaultComboBoxModel(data.toArray());
     }
     
-    public DefaultTableModel getTableModel(ResultSet rs) throws SQLException{
-        // Método genérico que devuelve la tabla con sus respectivos nombres
-        // de sus columnas.
-        ResultSetMetaData metaData = rs.getMetaData();
-
-        Vector<String> columnNames = new Vector<String>();
-        int columnCount = metaData.getColumnCount();
-        for (int column = 1; column <= columnCount; column++) {
-            columnNames.add(metaData.getColumnName(column));
+    public String getIDOfCombobox(JComboBox c){
+        try{
+            return c.getSelectedItem().toString().split("\\s+")[0];
         }
-
-        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-        while (rs.next()) {
-            Vector<Object> vector = new Vector<Object>();
-            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                vector.add(rs.getObject(columnIndex));
-            }
-            data.add(vector);
+        catch(Exception e){
+            return "";
         }
-        return new DefaultTableModel(data, columnNames){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-               //all cells false
-               return false;
-            }
-        };
     }
-
     
+    public String getIDOfComboboxElement(JComboBox c, int i){
+        try{
+            return c.getItemAt(i).toString().split("\\s+")[0];
+        }
+        catch(Exception e){
+            return "";
+        }
+    }
+    
+    public int getIndexOfIDInComboBox(JComboBox c, String id){
+        int n = c.getComponentCount();
+        for(int i = 0; i < n; i++){
+            String temp = getIDOfComboboxElement(c, i);
+            if(temp.equals(id))
+                return i;
+        }
+        return -1;
+    }
+    
+
     //              Código generado por NetBeans ↓
     // ---------------------------------------------------------
     
@@ -355,14 +512,12 @@ public class JFrame extends javax.swing.JFrame {
         textfield_cliente_nombre = new javax.swing.JTextField();
         label_cliente = new javax.swing.JLabel();
         label_cliente1 = new javax.swing.JLabel();
-        textfield_cliente_idempleado = new javax.swing.JTextField();
         label_cliente2 = new javax.swing.JLabel();
         textfield_cliente_direccion = new javax.swing.JTextField();
+        combobox_cliente_idempleado = new javax.swing.JComboBox<>();
         panel_suscripcion = new javax.swing.JPanel();
         label_suscripcion = new javax.swing.JLabel();
-        textfield_suscripcion_idcliente = new javax.swing.JTextField();
         label_suscripcion1 = new javax.swing.JLabel();
-        textfield_suscripcion_idempleado = new javax.swing.JTextField();
         label_suscripcion2 = new javax.swing.JLabel();
         textfield_suscripcion_precio = new javax.swing.JTextField();
         textfield_suscripcion_duracion = new javax.swing.JTextField();
@@ -373,6 +528,8 @@ public class JFrame extends javax.swing.JFrame {
         label_suscripcion5 = new javax.swing.JLabel();
         textfield_suscripcion_estado = new javax.swing.JTextField();
         label_suscripcion6 = new javax.swing.JLabel();
+        combobox_suscripcion_idempleado = new javax.swing.JComboBox<>();
+        combobox_suscripcion_idcliente = new javax.swing.JComboBox<>();
         panel_clase = new javax.swing.JPanel();
         label_clase = new javax.swing.JLabel();
         textfield_clase_idempleado = new javax.swing.JTextField();
@@ -481,7 +638,7 @@ public class JFrame extends javax.swing.JFrame {
         panel_cliente.setLayout(panel_clienteLayout);
         panel_clienteLayout.setHorizontalGroup(
             panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_clienteLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_clienteLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(label_cliente)
                 .addGap(29, 29, 29)
@@ -492,25 +649,25 @@ public class JFrame extends javax.swing.JFrame {
                 .addComponent(textfield_cliente_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(label_cliente1)
-                .addGap(29, 29, 29)
-                .addComponent(textfield_cliente_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addGap(33, 33, 33)
+                .addComponent(combobox_cliente_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
         panel_clienteLayout.setVerticalGroup(
             panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_clienteLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(61, 61, 61)
                 .addGroup(panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_cliente1)
-                        .addComponent(textfield_cliente_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(combobox_cliente_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_cliente2)
                         .addComponent(textfield_cliente_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_clienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_cliente)
                         .addComponent(textfield_cliente_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         tabs.addTab("Cliente", panel_cliente);
@@ -535,20 +692,22 @@ public class JFrame extends javax.swing.JFrame {
             panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_suscripcionLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_suscripcionLayout.createSequentialGroup()
-                        .addComponent(label_suscripcion)
-                        .addGap(30, 30, 30)
-                        .addComponent(textfield_suscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(panel_suscripcionLayout.createSequentialGroup()
-                            .addComponent(label_suscripcion2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textfield_suscripcion_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panel_suscripcionLayout.createSequentialGroup()
-                            .addComponent(label_suscripcion1)
-                            .addGap(18, 18, 18)
-                            .addComponent(textfield_suscripcion_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(label_suscripcion1)
+                        .addGap(18, 18, 18)
+                        .addComponent(combobox_suscripcion_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_suscripcionLayout.createSequentialGroup()
+                        .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_suscripcionLayout.createSequentialGroup()
+                                .addComponent(label_suscripcion2)
+                                .addGap(45, 45, 45))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_suscripcionLayout.createSequentialGroup()
+                                .addComponent(label_suscripcion)
+                                .addGap(30, 30, 30)))
+                        .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textfield_suscripcion_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combobox_suscripcion_idcliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(67, 67, 67)
                 .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_suscripcionLayout.createSequentialGroup()
@@ -572,27 +731,27 @@ public class JFrame extends javax.swing.JFrame {
         panel_suscripcionLayout.setVerticalGroup(
             panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_suscripcionLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(24, 24, 24)
                 .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_suscripcion)
-                    .addComponent(textfield_suscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_suscripcion3)
-                    .addComponent(textfield_suscripcion_duracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfield_suscripcion_duracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combobox_suscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_suscripcion1)
-                    .addComponent(textfield_suscripcion_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_suscripcion4)
                     .addComponent(textfield_suscripcion_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_suscripcion6)
-                    .addComponent(textfield_suscripcion_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfield_suscripcion_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combobox_suscripcion_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_suscripcion2)
                     .addComponent(textfield_suscripcion_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_suscripcion5)
                     .addComponent(textfield_suscripcion_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         tabs.addTab("Suscripcion", panel_suscripcion);
@@ -1151,8 +1310,9 @@ public class JFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
-        
-        llenarTabla();
+       llenarTabla();
+       actualizaComponentes();
+       limpiarPantalla();
     }//GEN-LAST:event_tabsStateChanged
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
@@ -1162,6 +1322,7 @@ public class JFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Agregado correctamente");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
+            return;
         }
         llenarTabla();
         limpiarPantalla();
@@ -1185,6 +1346,7 @@ public class JFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Modificado correctamente");
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
+                return;
             }
             llenarTabla();
             limpiarPantalla();
@@ -1202,6 +1364,7 @@ public class JFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Eliminado correctamente");
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
+                return;
             }
             llenarTabla();
             limpiarPantalla();
@@ -1210,6 +1373,7 @@ public class JFrame extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         llenarTabla();
+        actualizaComponentes();
     }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
@@ -1248,6 +1412,9 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JComboBox<String> combobox_cliente_idempleado;
+    private javax.swing.JComboBox<String> combobox_suscripcion_idcliente;
+    private javax.swing.JComboBox<String> combobox_suscripcion_idempleado;
     private javax.swing.JTable datagrid;
     private javax.swing.JLabel label_articulo1;
     private javax.swing.JLabel label_articulo2;
@@ -1313,7 +1480,6 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_clase_idhorario;
     private javax.swing.JTextField textfield_clase_nombre;
     private javax.swing.JTextField textfield_cliente_direccion;
-    private javax.swing.JTextField textfield_cliente_idempleado;
     private javax.swing.JTextField textfield_cliente_nombre;
     private javax.swing.JTextField textfield_compra_fecha;
     private javax.swing.JTextField textfield_compra_iddetallecompra;
@@ -1340,8 +1506,6 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_suscripcion_duracion;
     private javax.swing.JTextField textfield_suscripcion_estado;
     private javax.swing.JTextField textfield_suscripcion_fecha;
-    private javax.swing.JTextField textfield_suscripcion_idcliente;
-    private javax.swing.JTextField textfield_suscripcion_idempleado;
     private javax.swing.JTextField textfield_suscripcion_precio;
     private javax.swing.JTextField textfield_suscripcion_tipo;
     private javax.swing.JTextField textfield_venta_fecha;
