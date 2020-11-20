@@ -56,7 +56,7 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_horario_horafin.setText("");
             break;
             case "Empleado":
-                textfield_empleado_idhorario.setText("");
+                combobox_empleado_idhorario.setSelectedIndex(0);
                 textfield_empleado_nombre.setText("");
                 textfield_empleado_celular.setText("");
                 textfield_empleado_sueldo.setText("");
@@ -161,6 +161,11 @@ public class JFrame extends javax.swing.JFrame {
                 combobox_pago_idcliente.
                         setModel(convertQueryToComboBoxModel(query));
                 break;
+            case "Empleado":
+                query = getQueryOfComboBox("Horario");
+                combobox_empleado_idhorario.
+                        setModel(convertQueryToComboBoxModel(query));
+                break;
         }
     }
     
@@ -241,6 +246,20 @@ public class JFrame extends javax.swing.JFrame {
                         datagrid.getValueAt(index, 4).toString());
                 textfield_pago_fecha.setText(
                         datagrid.getValueAt(index, 5).toString());
+                break;
+            case "Empleado":
+                combobox_empleado_idhorario.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_empleado_idhorario, 
+                                datagrid.getValueAt(index, 2).toString()));
+                
+                textfield_empleado_nombre.setText(
+                        datagrid.getValueAt(index, 1).toString());
+                textfield_empleado_sueldo.setText(
+                        datagrid.getValueAt(index, 4).toString());
+                textfield_empleado_celular.setText(
+                        datagrid.getValueAt(index, 5).toString());
+                textfield_empleado_dias.setText(
+                        datagrid.getValueAt(index, 6).toString());
                 break;
         }
     }
@@ -331,6 +350,14 @@ public class JFrame extends javax.swing.JFrame {
                         + "INNER JOIN gimnasio.Cliente c "
                         + "ON p.IdCliente = c.IdCliente";
                 break;
+            case "Empleado":
+                sentencia = "SELECT e.IdEmpleado, e.Nombre, e.IdHorario, "
+                        + "CONCAT(h.HoraInicio, ' - ' ,h.HoraFin) as Horario, "
+                        + "e.Celular, e.Sueldo, e.Dias "
+                        + "FROM gimnasio.Empleado e "
+                        + "INNER JOIN gimnasio.Horario h "
+                        + "ON e.IdHorario = h.IdHorario";
+                break;
         }
         
         return sentencia;
@@ -357,7 +384,7 @@ public class JFrame extends javax.swing.JFrame {
             case "Empleado":
                 sentencia += "(idhorario, nombre, celular, sueldo, dias) "
                     + "VALUES"
-                    + "('"+ textfield_empleado_idhorario.getText() +"', "
+                    + "('"+ getIDOfCombobox(combobox_empleado_idhorario) +"', "
                     + "'"+ textfield_empleado_nombre.getText() +"', "
                     + "'"+ textfield_empleado_celular.getText() +"', "
                     + "'"+ textfield_empleado_sueldo.getText() +"', "
@@ -451,7 +478,7 @@ public class JFrame extends javax.swing.JFrame {
                         + "horafin='"+ textfield_horario_horafin.getText() +"'";
                 break;
             case "Empleado":
-                sentencia += "idhorario = '"+ textfield_empleado_idhorario.getText() +"', "
+                sentencia += "idhorario = '"+ getIDOfCombobox(combobox_empleado_idhorario) +"', "
                         + "nombre = '"+ textfield_empleado_nombre.getText() +"', "
                         + "celular = '"+ textfield_empleado_celular.getText() +"', "
                         + "sueldo = '"+ textfield_empleado_sueldo.getText() +"', "
@@ -696,7 +723,6 @@ public class JFrame extends javax.swing.JFrame {
         label_articulo3 = new javax.swing.JLabel();
         textfield_articulo_existencia = new javax.swing.JTextField();
         panel_empleado = new javax.swing.JPanel();
-        textfield_empleado_idhorario = new javax.swing.JTextField();
         label_empleado1 = new javax.swing.JLabel();
         textfield_empleado_celular = new javax.swing.JTextField();
         label_empleado2 = new javax.swing.JLabel();
@@ -706,6 +732,7 @@ public class JFrame extends javax.swing.JFrame {
         textfield_empleado_dias = new javax.swing.JTextField();
         textfield_empleado_nombre = new javax.swing.JTextField();
         label_empleado5 = new javax.swing.JLabel();
+        combobox_empleado_idhorario = new javax.swing.JComboBox<>();
         menu = new javax.swing.JScrollPane();
         datagrid = new javax.swing.JTable();
         btn_agregar = new javax.swing.JButton();
@@ -1293,7 +1320,7 @@ public class JFrame extends javax.swing.JFrame {
                     .addGroup(panel_empleadoLayout.createSequentialGroup()
                         .addComponent(label_empleado1)
                         .addGap(29, 29, 29)
-                        .addComponent(textfield_empleado_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(combobox_empleado_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_empleadoLayout.createSequentialGroup()
                         .addComponent(label_empleado5)
                         .addGap(29, 29, 29)
@@ -1328,12 +1355,13 @@ public class JFrame extends javax.swing.JFrame {
                     .addComponent(textfield_empleado_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_empleado1)
+                    .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_empleado1)
+                        .addComponent(combobox_empleado_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_empleado2)
-                        .addComponent(textfield_empleado_celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textfield_empleado_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                        .addComponent(textfield_empleado_celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         tabs.addTab("Empleado", panel_empleado);
@@ -1517,6 +1545,7 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combobox_clase_idempleado;
     private javax.swing.JComboBox<String> combobox_clase_idhorario;
     private javax.swing.JComboBox<String> combobox_cliente_idempleado;
+    private javax.swing.JComboBox<String> combobox_empleado_idhorario;
     private javax.swing.JComboBox<String> combobox_inscripcion_idclase;
     private javax.swing.JComboBox<String> combobox_inscripcion_idcliente;
     private javax.swing.JComboBox<String> combobox_pago_idcliente;
@@ -1598,7 +1627,6 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_detalleventa_total;
     private javax.swing.JTextField textfield_empleado_celular;
     private javax.swing.JTextField textfield_empleado_dias;
-    private javax.swing.JTextField textfield_empleado_idhorario;
     private javax.swing.JTextField textfield_empleado_nombre;
     private javax.swing.JTextField textfield_empleado_sueldo;
     private javax.swing.JTextField textfield_horario_horafin;

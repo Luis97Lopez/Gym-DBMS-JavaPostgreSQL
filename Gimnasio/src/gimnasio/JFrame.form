@@ -1120,7 +1120,7 @@
                           <Group type="102" attributes="0">
                               <Component id="label_empleado1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Component id="textfield_empleado_idhorario" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="combobox_empleado_idhorario" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="label_empleado5" min="-2" max="-2" attributes="0"/>
@@ -1165,21 +1165,21 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="label_empleado1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="label_empleado1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="combobox_empleado_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="label_empleado2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textfield_empleado_celular" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_empleado_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="59" max="32767" attributes="0"/>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="textfield_empleado_idhorario">
-            </Component>
             <Component class="javax.swing.JLabel" name="label_empleado1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="IdHorario:"/>
@@ -1212,6 +1212,16 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nombre:"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="combobox_empleado_idhorario">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
