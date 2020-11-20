@@ -465,28 +465,28 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="123" max="32767" attributes="0"/>
                       <Component id="label_inscripcion1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="textfield_inscripcion_idclase" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Component id="combobox_inscripcion_idclase" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                       <Component id="label_inscripcion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="textfield_inscripcion_idcliente" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="combobox_inscripcion_idcliente" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="76" max="32767" attributes="0"/>
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_inscripcion1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_inscripcion_idclase" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="combobox_inscripcion_idclase" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="label_inscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_inscripcion_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="combobox_inscripcion_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
@@ -500,14 +500,30 @@
                 <Property name="text" type="java.lang.String" value="IdCliente:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textfield_inscripcion_idcliente">
-            </Component>
             <Component class="javax.swing.JLabel" name="label_inscripcion1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="IdClase:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textfield_inscripcion_idclase">
+            <Component class="javax.swing.JComboBox" name="combobox_inscripcion_idcliente">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="combobox_inscripcion_idclase">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -529,12 +545,12 @@
                           <Group type="102" attributes="0">
                               <Component id="label_pago1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="textfield_pago_idcliente" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="combobox_pago_idcliente" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="label_pago" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="textfield_pago_idsuscripcion" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="combobox_pago_idsuscripcion" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
@@ -557,7 +573,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_pago2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -565,10 +581,10 @@
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="label_pago" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_pago_idsuscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="combobox_pago_idsuscripcion" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_pago3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -576,10 +592,10 @@
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="label_pago1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_pago_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="combobox_pago_idcliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="39" max="32767" attributes="0"/>
+                      <EmptySpace pref="43" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -590,14 +606,10 @@
                 <Property name="text" type="java.lang.String" value="IdSuscripcion:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textfield_pago_idsuscripcion">
-            </Component>
             <Component class="javax.swing.JLabel" name="label_pago1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="IdCliente:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_pago_idcliente">
             </Component>
             <Component class="javax.swing.JLabel" name="label_pago2">
               <Properties>
@@ -612,6 +624,26 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_pago_fecha">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="combobox_pago_idcliente">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="combobox_pago_idsuscripcion">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

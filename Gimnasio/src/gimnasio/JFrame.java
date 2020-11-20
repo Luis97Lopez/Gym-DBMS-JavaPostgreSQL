@@ -83,12 +83,12 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_clase_cupo.setText("");
             break;
             case "Inscripcion":
-                textfield_inscripcion_idclase.setText("");
-                textfield_inscripcion_idcliente.setText("");
+                combobox_inscripcion_idclase.setSelectedIndex(0);
+                combobox_inscripcion_idcliente.setSelectedIndex(0);
             break;
             case "Pago":
-                textfield_pago_idsuscripcion.setText("");
-                textfield_pago_idcliente.setText("");
+                combobox_pago_idsuscripcion.setSelectedIndex(0);
+                combobox_pago_idcliente.setSelectedIndex(0);
                 textfield_pago_total.setText("");
                 textfield_pago_fecha.setText("");
             break;
@@ -141,6 +141,24 @@ public class JFrame extends javax.swing.JFrame {
                 
                 query = getQueryOfComboBox("Horario");
                 combobox_clase_idhorario.
+                        setModel(convertQueryToComboBoxModel(query));
+                break;
+            case "Inscripcion":
+                query = getQueryOfComboBox("Clase");
+                combobox_inscripcion_idclase.
+                        setModel(convertQueryToComboBoxModel(query));
+                
+                query = getQueryOfComboBox("Cliente");
+                combobox_inscripcion_idcliente.
+                        setModel(convertQueryToComboBoxModel(query));
+                break;
+            case "Pago":
+                query = getQueryOfComboBox("Suscripcion");
+                combobox_pago_idsuscripcion.
+                        setModel(convertQueryToComboBoxModel(query));
+                
+                query = getQueryOfComboBox("Cliente");
+                combobox_pago_idcliente.
                         setModel(convertQueryToComboBoxModel(query));
                 break;
         }
@@ -200,6 +218,29 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_clase_cupo.setText(
                         datagrid.getValueAt(index, 2).toString());
                 
+                break;
+            case "Inscripcion":
+                combobox_inscripcion_idcliente.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_inscripcion_idcliente, 
+                                datagrid.getValueAt(index, 3).toString()));
+                
+                combobox_inscripcion_idclase.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_inscripcion_idclase, 
+                                datagrid.getValueAt(index, 1).toString()));
+                break;
+            case "Pago":
+                combobox_pago_idsuscripcion.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_pago_idsuscripcion, 
+                                datagrid.getValueAt(index, 1).toString()));
+                
+                combobox_pago_idcliente.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_pago_idcliente, 
+                                datagrid.getValueAt(index, 2).toString()));
+                
+                textfield_pago_total.setText(
+                        datagrid.getValueAt(index, 4).toString());
+                textfield_pago_fecha.setText(
+                        datagrid.getValueAt(index, 5).toString());
                 break;
         }
     }
@@ -273,6 +314,23 @@ public class JFrame extends javax.swing.JFrame {
                         + "INNER JOIN gimnasio.Empleado e "
                         + "ON c.IdEmpleado = e.IdEmpleado";
                 break;
+            case "Inscripcion":
+                sentencia = "SELECT i.IdInscripcion, i.IdClase, "
+                        + "cs.Nombre NombreClase, i.IdCliente, "
+                        + "ct.Nombre NombreCliente "
+                        + "FROM gimnasio.Inscripcion i "
+                        + "INNER JOIN gimnasio.Clase cs "
+                        + "ON i.IdClase = cs.IdClase "
+                        + "INNER JOIN gimnasio.Cliente ct "
+                        + "ON i.IdCliente = ct.IdCliente";
+                break;
+            case "Pago":
+                sentencia = "SELECT p.IdPago, p.IdSuscripcion, p.IdCliente, "
+                        + "c.Nombre NombreCliente, p.Total, p.Fecha "
+                        + "FROM gimnasio.Pago p "
+                        + "INNER JOIN gimnasio.Cliente c "
+                        + "ON p.IdCliente = c.IdCliente";
+                break;
         }
         
         return sentencia;
@@ -334,14 +392,14 @@ public class JFrame extends javax.swing.JFrame {
             case "Inscripcion":
                 sentencia += "(idclase, idcliente) "
                 + "VALUES"
-                + "('"+ textfield_inscripcion_idclase.getText() +"', "
-                + "'"+ textfield_inscripcion_idcliente.getText() +"')";
+                + "('"+ getIDOfCombobox(combobox_inscripcion_idclase) +"', "
+                + "'"+ getIDOfCombobox(combobox_inscripcion_idcliente) +"')";
             break;
             case "Pago":
                 sentencia += "(idsuscripcion, idcliente, total, fecha) "
                 + "VALUES"
-                + "('"+ textfield_pago_idsuscripcion.getText() +"', "
-                + "'"+ textfield_pago_idcliente.getText() +"', "
+                + "('"+ getIDOfCombobox(combobox_pago_idsuscripcion) +"', "
+                + "'"+ getIDOfCombobox(combobox_pago_idcliente) +"', "
                 + "'"+ textfield_pago_total.getText() +"', "
                 + "'"+ textfield_pago_fecha.getText() +"')";
             break;
@@ -421,12 +479,12 @@ public class JFrame extends javax.swing.JFrame {
                 + "cupo = '"+textfield_clase_cupo.getText() +"'";
             break;
             case "Inscripcion":
-                sentencia += "idclase = '"+ textfield_inscripcion_idclase.getText() +"', "
-                + "idcliente = '"+textfield_inscripcion_idcliente.getText() +"'";
+                sentencia += "idclase = '"+ getIDOfCombobox(combobox_inscripcion_idclase) +"', "
+                + "idcliente = '"+getIDOfCombobox(combobox_inscripcion_idcliente) +"'";
             break;
             case "Pago":
-                sentencia += "idsuscripcion = '"+ textfield_pago_idsuscripcion.getText() +"', "
-                + "idcliente = '"+textfield_pago_idcliente.getText() +"', "
+                sentencia += "idsuscripcion = '"+ getIDOfCombobox(combobox_pago_idsuscripcion) +"', "
+                + "idcliente = '"+getIDOfCombobox(combobox_pago_idcliente) +"', "
                 + "total = '"+textfield_pago_total.getText() +"', "
                 + "fecha = '"+textfield_pago_fecha.getText() +"'";
             break;
@@ -480,6 +538,11 @@ public class JFrame extends javax.swing.JFrame {
                         + "CONCAT(HoraInicio, ' - ' ,HoraFin) as Horario  "
                         + "FROM gimnasio.Horario";
                 break;
+            case "Clase":
+                query = "SELECT IdClase, Nombre FROM gimnasio.Clase";
+                break;
+            case "Suscripcion":
+                query = "SELECT IdSuscripcion FROM gimnasio.Suscripcion";
         }
         return query;
     }
@@ -580,18 +643,18 @@ public class JFrame extends javax.swing.JFrame {
         combobox_clase_idhorario = new javax.swing.JComboBox<>();
         panel_inscripcion = new javax.swing.JPanel();
         label_inscripcion = new javax.swing.JLabel();
-        textfield_inscripcion_idcliente = new javax.swing.JTextField();
         label_inscripcion1 = new javax.swing.JLabel();
-        textfield_inscripcion_idclase = new javax.swing.JTextField();
+        combobox_inscripcion_idcliente = new javax.swing.JComboBox<>();
+        combobox_inscripcion_idclase = new javax.swing.JComboBox<>();
         panel_pago = new javax.swing.JPanel();
         label_pago = new javax.swing.JLabel();
-        textfield_pago_idsuscripcion = new javax.swing.JTextField();
         label_pago1 = new javax.swing.JLabel();
-        textfield_pago_idcliente = new javax.swing.JTextField();
         label_pago2 = new javax.swing.JLabel();
         textfield_pago_total = new javax.swing.JTextField();
         label_pago3 = new javax.swing.JLabel();
         textfield_pago_fecha = new javax.swing.JTextField();
+        combobox_pago_idcliente = new javax.swing.JComboBox<>();
+        combobox_pago_idsuscripcion = new javax.swing.JComboBox<>();
         panel_horario = new javax.swing.JPanel();
         label_horario = new javax.swing.JLabel();
         textfield_horario_horainicio = new javax.swing.JTextField();
@@ -865,25 +928,25 @@ public class JFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_inscripcionLayout.createSequentialGroup()
                 .addContainerGap(123, Short.MAX_VALUE)
                 .addComponent(label_inscripcion1)
-                .addGap(30, 30, 30)
-                .addComponent(textfield_inscripcion_idclase, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98)
+                .addGap(36, 36, 36)
+                .addComponent(combobox_inscripcion_idclase, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(92, 92, 92)
                 .addComponent(label_inscripcion)
-                .addGap(30, 30, 30)
-                .addComponent(textfield_inscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(178, 178, 178))
+                .addGap(35, 35, 35)
+                .addComponent(combobox_inscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(173, 173, 173))
         );
         panel_inscripcionLayout.setVerticalGroup(
             panel_inscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_inscripcionLayout.createSequentialGroup()
-                .addContainerGap(76, Short.MAX_VALUE)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addGroup(panel_inscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_inscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_inscripcion1)
-                        .addComponent(textfield_inscripcion_idclase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(combobox_inscripcion_idclase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_inscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_inscripcion)
-                        .addComponent(textfield_inscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(combobox_inscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(62, 62, 62))
         );
 
@@ -907,11 +970,11 @@ public class JFrame extends javax.swing.JFrame {
                     .addGroup(panel_pagoLayout.createSequentialGroup()
                         .addComponent(label_pago1)
                         .addGap(30, 30, 30)
-                        .addComponent(textfield_pago_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(combobox_pago_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_pagoLayout.createSequentialGroup()
                         .addComponent(label_pago)
                         .addGap(30, 30, 30)
-                        .addComponent(textfield_pago_idsuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(combobox_pago_idsuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(81, 81, 81)
                 .addGroup(panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panel_pagoLayout.createSequentialGroup()
@@ -927,23 +990,23 @@ public class JFrame extends javax.swing.JFrame {
         panel_pagoLayout.setVerticalGroup(
             panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_pagoLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(41, 41, 41)
                 .addGroup(panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_pago2)
                         .addComponent(textfield_pago_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_pago)
-                        .addComponent(textfield_pago_idsuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
+                        .addComponent(combobox_pago_idsuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
                 .addGroup(panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_pago3)
                         .addComponent(textfield_pago_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_pago1)
-                        .addComponent(textfield_pago_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addComponent(combobox_pago_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         tabs.addTab("Pago", panel_pago);
@@ -1454,6 +1517,10 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combobox_clase_idempleado;
     private javax.swing.JComboBox<String> combobox_clase_idhorario;
     private javax.swing.JComboBox<String> combobox_cliente_idempleado;
+    private javax.swing.JComboBox<String> combobox_inscripcion_idclase;
+    private javax.swing.JComboBox<String> combobox_inscripcion_idcliente;
+    private javax.swing.JComboBox<String> combobox_pago_idcliente;
+    private javax.swing.JComboBox<String> combobox_pago_idsuscripcion;
     private javax.swing.JComboBox<String> combobox_suscripcion_idcliente;
     private javax.swing.JComboBox<String> combobox_suscripcion_idempleado;
     private javax.swing.JTable datagrid;
@@ -1536,11 +1603,7 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_empleado_sueldo;
     private javax.swing.JTextField textfield_horario_horafin;
     private javax.swing.JTextField textfield_horario_horainicio;
-    private javax.swing.JTextField textfield_inscripcion_idclase;
-    private javax.swing.JTextField textfield_inscripcion_idcliente;
     private javax.swing.JTextField textfield_pago_fecha;
-    private javax.swing.JTextField textfield_pago_idcliente;
-    private javax.swing.JTextField textfield_pago_idsuscripcion;
     private javax.swing.JTextField textfield_pago_total;
     private javax.swing.JTextField textfield_suscripcion_duracion;
     private javax.swing.JTextField textfield_suscripcion_estado;
