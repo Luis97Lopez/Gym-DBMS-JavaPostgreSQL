@@ -77,8 +77,8 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_suscripcion_estado.setText("");
             break;
             case "Clase":
-                textfield_clase_idempleado.setText("");
-                textfield_clase_idhorario.setText("");
+                combobox_clase_idempleado.setSelectedIndex(0);
+                combobox_clase_idhorario.setSelectedIndex(0);
                 textfield_clase_nombre.setText("");
                 textfield_clase_cupo.setText("");
             break;
@@ -134,6 +134,15 @@ public class JFrame extends javax.swing.JFrame {
                 query = getQueryOfComboBox("Cliente");
                 combobox_suscripcion_idcliente.
                         setModel(convertQueryToComboBoxModel(query));
+            case "Clase":
+                query = getQueryOfComboBox("Empleado");
+                combobox_clase_idempleado.
+                        setModel(convertQueryToComboBoxModel(query));
+                
+                query = getQueryOfComboBox("Horario");
+                combobox_clase_idhorario.
+                        setModel(convertQueryToComboBoxModel(query));
+                break;
         }
     }
     
@@ -176,6 +185,21 @@ public class JFrame extends javax.swing.JFrame {
                         datagrid.getValueAt(index, 8).toString());
                 textfield_suscripcion_estado.setText(
                         datagrid.getValueAt(index, 9).toString());
+                break;
+            case "Clase":
+                combobox_clase_idempleado.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_clase_idempleado, 
+                                datagrid.getValueAt(index, 3).toString()));
+                
+                combobox_clase_idhorario.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_clase_idhorario, 
+                                datagrid.getValueAt(index, 5).toString()));
+                
+                textfield_clase_nombre.setText(
+                        datagrid.getValueAt(index, 1).toString());
+                textfield_clase_cupo.setText(
+                        datagrid.getValueAt(index, 2).toString());
+                
                 break;
         }
     }
@@ -238,7 +262,17 @@ public class JFrame extends javax.swing.JFrame {
                         + "INNER JOIN gimnasio.Cliente c "
                         + "ON s.IdEmpleado = c.IdEmpleado";
                 break;
-                
+            case "Clase":
+                sentencia = "SELECT c.IdClase, c.Nombre, c.Cupo, "
+                        + "c.IdEmpleado, e.Nombre NombreEmpleado, "
+                        + "c.IdHorario,"
+                        + "CONCAT(h.HoraInicio, ' - ' ,h.HoraFin) as Horario "
+                        + "FROM gimnasio.Clase c "
+                        + "INNER JOIN gimnasio.Horario h "
+                        + "ON c.IdHorario = h.IdHorario "
+                        + "INNER JOIN gimnasio.Empleado e "
+                        + "ON c.IdEmpleado = e.IdEmpleado";
+                break;
         }
         
         return sentencia;
@@ -292,8 +326,8 @@ public class JFrame extends javax.swing.JFrame {
             case "Clase":
                 sentencia += "(idempleado, idhorario, nombre, cupo) "
                 + "VALUES"
-                + "('"+ textfield_clase_idempleado.getText() +"', "
-                + "'"+ textfield_clase_idhorario.getText() +"', "
+                + "('"+ getIDOfCombobox(combobox_clase_idempleado) +"', "
+                + "'"+ getIDOfCombobox(combobox_clase_idhorario) +"', "
                 + "'"+ textfield_clase_nombre.getText() +"', "
                 + "'"+ textfield_clase_cupo.getText() +"')";
             break;
@@ -381,8 +415,8 @@ public class JFrame extends javax.swing.JFrame {
                 + "estado = '"+ textfield_suscripcion_estado.getText() +"'";
             break;
             case "Clase":
-                sentencia += "idempleado = '"+ textfield_clase_idempleado.getText() +"', "
-                + "idhorario = '"+textfield_clase_idhorario.getText() +"', "
+                sentencia += "idempleado = '"+ getIDOfCombobox(combobox_clase_idempleado) +"', "
+                + "idhorario = '"+getIDOfCombobox(combobox_clase_idhorario) +"', "
                 + "nombre = '"+textfield_clase_nombre.getText() +"', "
                 + "cupo = '"+textfield_clase_cupo.getText() +"'";
             break;
@@ -440,6 +474,11 @@ public class JFrame extends javax.swing.JFrame {
                 break;
             case "Cliente":
                 query = "SELECT IdCliente, Nombre FROM gimnasio.Cliente";
+                break;
+            case "Horario":
+                query = "SELECT IdHorario, "
+                        + "CONCAT(HoraInicio, ' - ' ,HoraFin) as Horario  "
+                        + "FROM gimnasio.Horario";
                 break;
         }
         return query;
@@ -532,13 +571,13 @@ public class JFrame extends javax.swing.JFrame {
         combobox_suscripcion_idcliente = new javax.swing.JComboBox<>();
         panel_clase = new javax.swing.JPanel();
         label_clase = new javax.swing.JLabel();
-        textfield_clase_idempleado = new javax.swing.JTextField();
         label_clase1 = new javax.swing.JLabel();
-        textfield_clase_idhorario = new javax.swing.JTextField();
         textfield_clase_nombre = new javax.swing.JTextField();
         label_clase2 = new javax.swing.JLabel();
         label_clase3 = new javax.swing.JLabel();
         textfield_clase_cupo = new javax.swing.JTextField();
+        combobox_clase_idempleado = new javax.swing.JComboBox<>();
+        combobox_clase_idhorario = new javax.swing.JComboBox<>();
         panel_inscripcion = new javax.swing.JPanel();
         label_inscripcion = new javax.swing.JLabel();
         textfield_inscripcion_idcliente = new javax.swing.JTextField();
@@ -705,9 +744,9 @@ public class JFrame extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_suscripcionLayout.createSequentialGroup()
                                 .addComponent(label_suscripcion)
                                 .addGap(30, 30, 30)))
-                        .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textfield_suscripcion_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(combobox_suscripcion_idcliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(combobox_suscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(67, 67, 67)
                 .addGroup(panel_suscripcionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_suscripcionLayout.createSequentialGroup()
@@ -770,16 +809,14 @@ public class JFrame extends javax.swing.JFrame {
             panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_claseLayout.createSequentialGroup()
                 .addGap(87, 87, 87)
-                .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panel_claseLayout.createSequentialGroup()
-                        .addComponent(label_clase1)
-                        .addGap(18, 18, 18)
-                        .addComponent(textfield_clase_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_claseLayout.createSequentialGroup()
-                        .addComponent(label_clase)
-                        .addGap(18, 18, 18)
-                        .addComponent(textfield_clase_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(109, 109, 109)
+                .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_clase, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label_clase1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(27, 27, 27)
+                .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(combobox_clase_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combobox_clase_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(100, 100, 100)
                 .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_claseLayout.createSequentialGroup()
                         .addComponent(label_clase2)
@@ -794,23 +831,25 @@ public class JFrame extends javax.swing.JFrame {
         panel_claseLayout.setVerticalGroup(
             panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_claseLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_clase2)
-                        .addComponent(textfield_clase_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_clase)
-                        .addComponent(textfield_clase_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
+                .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_clase2)
+                            .addComponent(textfield_clase_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(label_clase))
+                    .addGroup(panel_claseLayout.createSequentialGroup()
+                        .addComponent(combobox_clase_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
+                .addGap(12, 12, 12)
                 .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_clase3)
                         .addComponent(textfield_clase_cupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_claseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(label_clase1)
-                        .addComponent(textfield_clase_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addComponent(combobox_clase_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         tabs.addTab("Clase", panel_clase);
@@ -1412,6 +1451,8 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JComboBox<String> combobox_clase_idempleado;
+    private javax.swing.JComboBox<String> combobox_clase_idhorario;
     private javax.swing.JComboBox<String> combobox_cliente_idempleado;
     private javax.swing.JComboBox<String> combobox_suscripcion_idcliente;
     private javax.swing.JComboBox<String> combobox_suscripcion_idempleado;
@@ -1476,8 +1517,6 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_articulo_nombre;
     private javax.swing.JTextField textfield_articulo_precio;
     private javax.swing.JTextField textfield_clase_cupo;
-    private javax.swing.JTextField textfield_clase_idempleado;
-    private javax.swing.JTextField textfield_clase_idhorario;
     private javax.swing.JTextField textfield_clase_nombre;
     private javax.swing.JTextField textfield_cliente_direccion;
     private javax.swing.JTextField textfield_cliente_nombre;
