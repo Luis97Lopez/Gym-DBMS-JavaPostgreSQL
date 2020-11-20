@@ -723,15 +723,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="label_venta1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="textfield_venta_iddetalleventa" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="combobox_venta_iddetalleventa" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="label_venta" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="textfield_venta_idempleado" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="combobox_venta_idempleado" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
@@ -745,19 +745,19 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="label_venta" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_venta_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="label_venta2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textfield_venta_fecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="combobox_venta_idempleado" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="label_venta1" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_venta_iddetalleventa" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_venta1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="combobox_venta_iddetalleventa" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="59" max="32767" attributes="0"/>
+                      <EmptySpace pref="56" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -767,8 +767,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="IdEmpleado:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_venta_idempleado">
             </Component>
             <Component class="javax.swing.JLabel" name="label_venta1">
               <Properties>
@@ -782,7 +780,25 @@
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_venta_fecha">
             </Component>
-            <Component class="javax.swing.JTextField" name="textfield_venta_iddetalleventa">
+            <Component class="javax.swing.JComboBox" name="combobox_venta_idempleado">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="combobox_venta_iddetalleventa">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -809,7 +825,7 @@
                           <Group type="102" attributes="0">
                               <Component id="label_detalleventa" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="textfield_detalleventa_idarticulo" min="-2" pref="154" max="-2" attributes="0"/>
+                              <Component id="combobox_detalleventa_idarticulo" min="-2" pref="154" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
@@ -823,7 +839,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="label_detalleventa2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -831,7 +847,7 @@
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="label_detalleventa" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_detalleventa_idarticulo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="combobox_detalleventa_idarticulo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -839,7 +855,7 @@
                           <Component id="label_detalleventa1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textfield_detalleventa_cantidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
+                      <EmptySpace pref="36" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -849,8 +865,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="IdArticulo:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_detalleventa_idarticulo">
             </Component>
             <Component class="javax.swing.JLabel" name="label_detalleventa1">
               <Properties>
@@ -865,6 +879,16 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_detalleventa_total">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="combobox_detalleventa_idarticulo">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
