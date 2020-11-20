@@ -103,12 +103,12 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_detalleventa_total.setText("");
             break;
             case "Compra":
-                textfield_compra_idempleado.setText("");
-                textfield_compra_iddetallecompra.setText("");
+                combobox_compra_idempleado.setSelectedIndex(0);
+                combobox_compra_iddetallecompra.setSelectedIndex(0);
                 textfield_compra_fecha.setText("");
             break;
             case "DetalleCompra":
-                textfield_detallecompra_idarticulo.setText("");
+                combobox_detallecompra_idarticulo.setSelectedIndex(0);
                 textfield_detallecompra_cantidad.setText("");
                 textfield_detallecompra_total.setText("");
             break;
@@ -174,9 +174,24 @@ public class JFrame extends javax.swing.JFrame {
                 query = getQueryOfComboBox("DetalleVenta");
                 combobox_venta_iddetalleventa.
                         setModel(convertQueryToComboBoxModel(query));
+                break;
+            case "Compra":
+                query = getQueryOfComboBox("Empleado");
+                combobox_compra_idempleado.
+                        setModel(convertQueryToComboBoxModel(query));
+                
+                query = getQueryOfComboBox("DetalleCompra");
+                combobox_compra_iddetallecompra.
+                        setModel(convertQueryToComboBoxModel(query));
+                break;
             case "DetalleVenta":
                 query = getQueryOfComboBox("Articulo");
                 combobox_detalleventa_idarticulo.
+                        setModel(convertQueryToComboBoxModel(query));  
+                break;
+            case "DetalleCompra":
+                query = getQueryOfComboBox("Articulo");
+                combobox_detallecompra_idarticulo.
                         setModel(convertQueryToComboBoxModel(query));  
                 break;
         }
@@ -297,6 +312,29 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_detalleventa_total.setText(
                         datagrid.getValueAt(index, 4).toString());
                 break;
+            case "Compra":
+                combobox_compra_idempleado.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_compra_idempleado, 
+                                datagrid.getValueAt(index, 1).toString()));
+                
+                combobox_compra_iddetallecompra.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_compra_iddetallecompra, 
+                                datagrid.getValueAt(index, 3).toString()));
+                
+                textfield_compra_fecha.setText(
+                        datagrid.getValueAt(index, 4).toString());
+                break;
+            case "DetalleCompra":
+                combobox_detallecompra_idarticulo.setSelectedIndex(
+                        getIndexOfIDInComboBox(combobox_detallecompra_idarticulo, 
+                                datagrid.getValueAt(index, 1).toString()));
+                
+                textfield_detallecompra_cantidad.setText(
+                        datagrid.getValueAt(index, 3).toString());
+                 
+                textfield_detallecompra_total.setText(
+                        datagrid.getValueAt(index, 4).toString());
+                break;
         }
     }
     
@@ -409,6 +447,21 @@ public class JFrame extends javax.swing.JFrame {
                         + "INNER JOIN gimnasio.Articulo a "
                         + "ON dv.IdArticulo = a.IdArticulo";
                 break;
+            case "Compra":
+                sentencia = "SELECT c.IdCompra, c.IdEmpleado, "
+                        + "e.Nombre NombreEmpleado, "
+                        + "c.IdDetalleCompra, c.Fecha "
+                        + "FROM gimnasio.Compra c "
+                        + "INNER JOIN gimnasio.Empleado e "
+                        + "ON c.IdEmpleado = e.IdEmpleado";
+                break;
+            case "DetalleCompra":
+                sentencia = "SELECT dc.IdDetalleCompra, dc.IdArticulo, "
+                        + "a.Nombre NombreArticulo, dc.Cantidad, dc.Total "
+                        + "FROM gimnasio.DetalleCompra dc "
+                        + "INNER JOIN gimnasio.Articulo a "
+                        + "ON dc.IdArticulo = a.IdArticulo";
+                break;
         }
         
         return sentencia;
@@ -498,14 +551,14 @@ public class JFrame extends javax.swing.JFrame {
             case "Compra":
                 sentencia += "(idempleado, iddetallecompra, fecha) "
                 + "VALUES"
-                + "('"+ textfield_compra_idempleado.getText() +"', "
-                + "'"+ textfield_compra_iddetallecompra.getText() +"', "
+                + "('"+ getIDOfCombobox(combobox_compra_idempleado) +"', "
+                + "'"+ getIDOfCombobox(combobox_compra_iddetallecompra) +"', "
                 + "'"+ textfield_compra_fecha.getText() +"')";
             break;
             case "DetalleCompra":
                 sentencia += "(idarticulo, cantidad, total) "
                 + "VALUES"
-                + "('"+ textfield_detallecompra_idarticulo.getText() +"', "
+                + "('"+ getIDOfCombobox(combobox_detallecompra_idarticulo) +"', "
                 + "'"+ textfield_detallecompra_cantidad.getText() +"', "
                 + "'"+ textfield_detallecompra_total.getText() +"')";
             break;
@@ -577,12 +630,12 @@ public class JFrame extends javax.swing.JFrame {
                 + "total = '"+textfield_detalleventa_total.getText() +"'";
             break;
             case "Compra":
-                sentencia += "idempleado = '"+ textfield_compra_idempleado.getText() +"', "
-                + "iddetallecompra = '"+textfield_compra_iddetallecompra.getText() +"', "
+                sentencia += "idempleado = '"+ getIDOfCombobox(combobox_compra_idempleado) +"', "
+                + "iddetallecompra = '"+getIDOfCombobox(combobox_compra_iddetallecompra) +"', "
                 + "fecha = '"+textfield_compra_fecha.getText() +"'";
             break;
             case "DetalleCompra":
-                sentencia += "idarticulo = '"+ textfield_detallecompra_idarticulo.getText() +"', "
+                sentencia += "idarticulo = '"+ getIDOfCombobox(combobox_detallecompra_idarticulo) +"', "
                 + "cantidad = '"+textfield_detallecompra_cantidad.getText() +"', "
                 + "total = '"+textfield_detallecompra_total.getText() +"'";
             break;
@@ -624,6 +677,9 @@ public class JFrame extends javax.swing.JFrame {
                 break;
             case "DetalleVenta":
                 query = "SELECT IdDetalleVenta FROM gimnasio.DetalleVenta";
+                break;
+            case "DetalleCompra":
+                query = "SELECT IdDetalleCompra FROM gimnasio.DetalleCompra";
                 break;
             case "Articulo":
                 query = "SELECT IdArticulo, Nombre FROM gimnasio.Articulo";
@@ -677,7 +733,7 @@ public class JFrame extends javax.swing.JFrame {
     }
     
     public int getIndexOfIDInComboBox(JComboBox c, String id){
-        int n = c.getComponentCount();
+        int n = c.getItemCount();
         for(int i = 0; i < n; i++){
             String temp = getIDOfComboboxElement(c, i);
             if(temp.equals(id))
@@ -761,18 +817,18 @@ public class JFrame extends javax.swing.JFrame {
         combobox_detalleventa_idarticulo = new javax.swing.JComboBox<>();
         panel_compra = new javax.swing.JPanel();
         label_compra = new javax.swing.JLabel();
-        textfield_compra_idempleado = new javax.swing.JTextField();
         textfield_compra_fecha = new javax.swing.JTextField();
         label_compra2 = new javax.swing.JLabel();
         label_compra1 = new javax.swing.JLabel();
-        textfield_compra_iddetallecompra = new javax.swing.JTextField();
+        combobox_compra_idempleado = new javax.swing.JComboBox<>();
+        combobox_compra_iddetallecompra = new javax.swing.JComboBox<>();
         panel_detallecompra = new javax.swing.JPanel();
         label_detallecompra = new javax.swing.JLabel();
-        textfield_detallecompra_idarticulo = new javax.swing.JTextField();
         label_detallecompra2 = new javax.swing.JLabel();
         textfield_detallecompra_total = new javax.swing.JTextField();
         label_detallecompra1 = new javax.swing.JLabel();
         textfield_detallecompra_cantidad = new javax.swing.JTextField();
+        combobox_detallecompra_idarticulo = new javax.swing.JComboBox<>();
         panel_articulo = new javax.swing.JPanel();
         label_articulo1 = new javax.swing.JLabel();
         textfield_articulo_nombre = new javax.swing.JTextField();
@@ -1238,11 +1294,11 @@ public class JFrame extends javax.swing.JFrame {
                 .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label_compra1)
                     .addComponent(label_compra))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textfield_compra_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfield_compra_iddetallecompra, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(94, 94, 94)
+                    .addComponent(combobox_compra_iddetallecompra, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combobox_compra_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(106, 106, 106)
                 .addComponent(label_compra2)
                 .addGap(30, 30, 30)
                 .addComponent(textfield_compra_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1253,17 +1309,18 @@ public class JFrame extends javax.swing.JFrame {
             .addGroup(panel_compraLayout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_compra2)
-                        .addComponent(textfield_compra_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_compra)
-                        .addComponent(textfield_compra_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
-                .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_compra1)
-                    .addComponent(textfield_compra_iddetallecompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                    .addComponent(combobox_compra_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panel_compraLayout.createSequentialGroup()
+                        .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(label_compra2)
+                                .addComponent(textfield_compra_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(label_compra))
+                        .addGap(32, 32, 32)
+                        .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_compra1)
+                            .addComponent(combobox_compra_iddetallecompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         tabs.addTab("Compra", panel_compra);
@@ -1288,7 +1345,7 @@ public class JFrame extends javax.swing.JFrame {
                     .addGroup(panel_detallecompraLayout.createSequentialGroup()
                         .addComponent(label_detallecompra)
                         .addGap(30, 30, 30)
-                        .addComponent(textfield_detallecompra_idarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(combobox_detallecompra_idarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(92, 92, 92)
                 .addComponent(label_detallecompra2)
                 .addGap(30, 30, 30)
@@ -1298,13 +1355,13 @@ public class JFrame extends javax.swing.JFrame {
         panel_detallecompraLayout.setVerticalGroup(
             panel_detallecompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_detallecompraLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(36, 36, 36)
                 .addGroup(panel_detallecompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_detallecompra)
-                    .addComponent(textfield_detallecompra_idarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_detallecompra2)
-                    .addComponent(textfield_detallecompra_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(textfield_detallecompra_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combobox_detallecompra_idarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(panel_detallecompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_detallecompra1)
                     .addComponent(textfield_detallecompra_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1603,6 +1660,9 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combobox_clase_idempleado;
     private javax.swing.JComboBox<String> combobox_clase_idhorario;
     private javax.swing.JComboBox<String> combobox_cliente_idempleado;
+    private javax.swing.JComboBox<String> combobox_compra_iddetallecompra;
+    private javax.swing.JComboBox<String> combobox_compra_idempleado;
+    private javax.swing.JComboBox<String> combobox_detallecompra_idarticulo;
     private javax.swing.JComboBox<String> combobox_detalleventa_idarticulo;
     private javax.swing.JComboBox<String> combobox_empleado_idhorario;
     private javax.swing.JComboBox<String> combobox_inscripcion_idclase;
@@ -1678,10 +1738,7 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_cliente_direccion;
     private javax.swing.JTextField textfield_cliente_nombre;
     private javax.swing.JTextField textfield_compra_fecha;
-    private javax.swing.JTextField textfield_compra_iddetallecompra;
-    private javax.swing.JTextField textfield_compra_idempleado;
     private javax.swing.JTextField textfield_detallecompra_cantidad;
-    private javax.swing.JTextField textfield_detallecompra_idarticulo;
     private javax.swing.JTextField textfield_detallecompra_total;
     private javax.swing.JTextField textfield_detalleventa_cantidad;
     private javax.swing.JTextField textfield_detalleventa_total;
