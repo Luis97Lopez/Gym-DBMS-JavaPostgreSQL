@@ -173,6 +173,83 @@ check (Tipo = 'Semanal' or Tipo = 'Mensual' or Tipo = 'Semestral' or Tipo = 'Anu
 
 CREATE UNIQUE INDEX UK_CelularEmpleado ON gimnasio.Empleado (Celular);
 
+
+CREATE OR REPLACE FUNCTION trigger_reduceCupo() 
+RETURNS TRIGGER 
+AS $$
+	BEGIN
+	   UPDATE gimnasio.Clase
+		SET Cupo = Cupo-1
+		WHERE IdClase = NEW.IdClase;
+		return new;
+	END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER reduce_Cupo
+AFTER INSERT ON gimnasio.Inscripcion
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_reduceCupo();
+
+CREATE OR REPLACE FUNCTION trigger_aumentaCupo() 
+RETURNS TRIGGER 
+AS $$
+	BEGIN
+	   UPDATE gimnasio.Clase
+		SET Cupo = Cupo+1
+		WHERE IdClase = OLD.IdClase;
+		return new;
+	END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER aumenta_Cupo
+AFTER delete ON gimnasio.Inscripcion
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_aumentaCupo();
+
+CREATE OR REPLACE FUNCTION trigger_calcular_total_compra() 
+RETURNS TRIGGER 
+AS $$
+	DECLARE
+		
+	BEGIN
+	   	UPDATE gimnasio.DetalleCompra
+	   	SET Total = Cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=New.IdArticulo)
+		WHERE IdDetalleCompra = NEW.IdDetalleCompra;
+		return new;
+	END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER calcula_total_compra
+AFTER insert
+ON gimnasio.DetalleCompra
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_calcular_total_compra();
+
+CREATE OR REPLACE FUNCTION trigger_calcular_total_venta() 
+RETURNS TRIGGER 
+AS $$
+	DECLARE
+		
+	BEGIN
+	   	UPDATE gimnasio.DetalleVenta
+	   	SET Total = Cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=New.IdArticulo)
+		WHERE IdDetalleVenta = NEW.IdDetalleVenta;
+		return new;
+	END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER calcula_total_venta
+AFTER insert
+ON gimnasio.DetalleVenta
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_calcular_total_venta();
+
+
+
 INSERT INTO gimnasio.Articulo (Nombre, Precio, Existencia)
 VALUES ('Pesas', 1000.1, '1');
 
