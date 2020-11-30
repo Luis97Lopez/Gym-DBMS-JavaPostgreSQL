@@ -214,16 +214,15 @@ AS $$
 	DECLARE
 		
 	BEGIN
-	   	UPDATE gimnasio.DetalleCompra
-	   	SET Total = Cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=New.IdArticulo)
-		WHERE IdDetalleCompra = NEW.IdDetalleCompra;
-		return new;
+	   	NEW.Total := NEW.cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=NEW.IdArticulo);
+		
+		RETURN NEW;
 	END;
 $$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER calcula_total_compra
-AFTER insert
+BEFORE INSERT or UPDATE
 ON gimnasio.DetalleCompra
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_calcular_total_compra();
@@ -234,16 +233,15 @@ AS $$
 	DECLARE
 		
 	BEGIN
-	   	UPDATE gimnasio.DetalleVenta
-	   	SET Total = Cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=New.IdArticulo)
-		WHERE IdDetalleVenta = NEW.IdDetalleVenta;
-		return new;
+	   	NEW.Total := NEW.cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=NEW.IdArticulo);
+		
+		RETURN NEW;
 	END;
 $$
 LANGUAGE plpgsql;
 
 CREATE TRIGGER calcula_total_venta
-AFTER insert
+BEFORE INSERT or UPDATE
 ON gimnasio.DetalleVenta
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_calcular_total_venta();
