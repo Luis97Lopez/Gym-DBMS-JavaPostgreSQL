@@ -753,6 +753,13 @@ public class JFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         tabs = new javax.swing.JTabbedPane();
+        panel_login = new javax.swing.JPanel();
+        label_login1 = new javax.swing.JLabel();
+        textfield_login_usuario = new javax.swing.JTextField();
+        textfield_login_password = new javax.swing.JTextField();
+        label_login = new javax.swing.JLabel();
+        btn_login = new javax.swing.JButton();
+        label_login2 = new javax.swing.JLabel();
         panel_cliente = new javax.swing.JPanel();
         textfield_cliente_nombre = new javax.swing.JTextField();
         label_cliente = new javax.swing.JLabel();
@@ -868,6 +875,63 @@ public class JFrame extends javax.swing.JFrame {
                 tabsStateChanged(evt);
             }
         });
+
+        label_login1.setText("Usuario:");
+
+        label_login.setText("Contraseña:");
+
+        btn_login.setText("Iniciar Sesión");
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_loginActionPerformed(evt);
+            }
+        });
+
+        label_login2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        label_login2.setText("No has iniciado sesión");
+
+        javax.swing.GroupLayout panel_loginLayout = new javax.swing.GroupLayout(panel_login);
+        panel_login.setLayout(panel_loginLayout);
+        panel_loginLayout.setHorizontalGroup(
+            panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_loginLayout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label_login)
+                    .addComponent(label_login1))
+                .addGap(29, 29, 29)
+                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfield_login_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textfield_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(97, 97, 97)
+                .addComponent(label_login2)
+                .addContainerGap(267, Short.MAX_VALUE))
+        );
+        panel_loginLayout.setVerticalGroup(
+            panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_loginLayout.createSequentialGroup()
+                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(label_login2))
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_login1)
+                            .addComponent(textfield_login_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_login)
+                            .addComponent(textfield_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_login)))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        btn_login.getAccessibleContext().setAccessibleName("Iniciar Sesión");
+
+        tabs.addTab("Login", panel_login);
 
         label_cliente.setText("Nombre:");
 
@@ -1593,6 +1657,10 @@ public class JFrame extends javax.swing.JFrame {
         actualizaComponentes();
     }//GEN-LAST:event_formWindowOpened
 
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_loginActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1628,6 +1696,7 @@ public class JFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
+    private javax.swing.JButton btn_login;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JComboBox<String> combobox_clase_idempleado;
     private javax.swing.JComboBox<String> combobox_clase_idhorario;
@@ -1672,6 +1741,9 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_horario1;
     private javax.swing.JLabel label_inscripcion;
     private javax.swing.JLabel label_inscripcion1;
+    private javax.swing.JLabel label_login;
+    private javax.swing.JLabel label_login1;
+    private javax.swing.JLabel label_login2;
     private javax.swing.JLabel label_pago;
     private javax.swing.JLabel label_pago1;
     private javax.swing.JLabel label_pago2;
@@ -1696,6 +1768,7 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_empleado;
     private javax.swing.JPanel panel_horario;
     private javax.swing.JPanel panel_inscripcion;
+    private javax.swing.JPanel panel_login;
     private javax.swing.JPanel panel_pago;
     private javax.swing.JPanel panel_suscripcion;
     private javax.swing.JPanel panel_venta;
@@ -1716,6 +1789,8 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_empleado_sueldo;
     private javax.swing.JTextField textfield_horario_horafin;
     private javax.swing.JTextField textfield_horario_horainicio;
+    private javax.swing.JTextField textfield_login_password;
+    private javax.swing.JTextField textfield_login_usuario;
     private javax.swing.JTextField textfield_pago_fecha;
     private javax.swing.JTextField textfield_pago_total;
     private javax.swing.JTextField textfield_suscripcion_duracion;
