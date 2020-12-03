@@ -248,6 +248,23 @@ EXECUTE PROCEDURE trigger_calcular_total_venta();
 
 
 
+CREATE USER user_gerente WITH PASSWORD 'postgres';
+CREATE USER user_empleado WITH PASSWORD 'postgres';
+REVOKE ALL ON DATABASE "Gimnasio" FROM public;
+
+CREATE ROLE gerente;
+CREATE ROLE empleado;
+
+GRANT CONNECT ON DATABASE "Gimnasio" TO gerente;
+GRANT CONNECT ON DATABASE "Gimnasio" TO empleado;
+
+GRANT USAGE ON SCHEMA gimnasio TO gerente;
+GRANT USAGE ON SCHEMA gimnasio TO empleado;
+
+GRANT gerente TO user_gerente;
+GRANT empleado TO user_empleado;
+
+
 INSERT INTO gimnasio.Articulo (Nombre, Precio, Existencia)
 VALUES ('Pesas', 1000.1, '1');
 

@@ -6,29 +6,41 @@ import java.util.Vector;
 
 public class JFrame extends javax.swing.JFrame {
     String bd = "jdbc:postgresql://localhost:5432/Gimnasio";
-    String user = "postgres";
-    String password = "postgres";
     Connection conexion = null;
     Statement sentencia = null;
+    String login_message_failed = "No has iniciado sesión.";
+    String login_message_ok = "Inicio de sesión para el Usuario: ";
+    String logged_in = "Hola, ";
+    String not_logged_in = "No has iniciado sesión.";
     
     public JFrame() {
         initComponents();
-        conectarBD();
+        //conectarBD();
     }
-    
+
     public void conectarBD(){
+        String user = textfield_login_usuario.getText();
+        String password = textfield_login_password.getText();
+        
         try{
             conexion = DriverManager.getConnection(bd, user, password);
             sentencia = conexion.createStatement();
+            
+            label_login2.setText(logged_in + user);
+            JOptionPane.showMessageDialog(this, login_message_ok + user);
+            
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
+        
+        textfield_login_usuario.setText("");
+        textfield_login_password.setText("");
     }
     
     //              Métodos Auxiliares para la GridView y Componentes ↓
     // ---------------------------------------------------------
     
-    public void llenarTabla(){
+    public Boolean llenarTabla(){
         String tabla = getSelectedTable();
         try{
             if(sentencia != null){
@@ -40,12 +52,18 @@ public class JFrame extends javax.swing.JFrame {
         }catch(Exception e){
             datagrid.setModel(new DefaultTableModel());
             JOptionPane.showMessageDialog(this, e.getMessage());
+            return false;
         }
+        return true;
     }
     
     public void limpiarPantalla(){
         String tabla = getSelectedTable();
         switch(tabla){
+            case "Login":
+                textfield_login_usuario.setText("");
+                textfield_login_password.setText("");
+                break;
             case "Articulo":
                 textfield_articulo_nombre.setText("");
                 textfield_articulo_precio.setText("");
@@ -760,6 +778,7 @@ public class JFrame extends javax.swing.JFrame {
         label_login = new javax.swing.JLabel();
         btn_login = new javax.swing.JButton();
         label_login2 = new javax.swing.JLabel();
+        btn_logout = new javax.swing.JButton();
         panel_cliente = new javax.swing.JPanel();
         textfield_cliente_nombre = new javax.swing.JTextField();
         label_cliente = new javax.swing.JLabel();
@@ -888,7 +907,15 @@ public class JFrame extends javax.swing.JFrame {
         });
 
         label_login2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        label_login2.setText("No has iniciado sesión");
+        label_login2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_login2.setText("No has iniciado sesión.");
+
+        btn_logout.setText("Cerrar Sesión");
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_loginLayout = new javax.swing.GroupLayout(panel_login);
         panel_login.setLayout(panel_loginLayout);
@@ -900,33 +927,41 @@ public class JFrame extends javax.swing.JFrame {
                     .addComponent(label_login)
                     .addComponent(label_login1))
                 .addGap(29, 29, 29)
-                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfield_login_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfield_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(97, 97, 97)
-                .addComponent(label_login2)
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addComponent(textfield_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addComponent(label_login2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_loginLayout.createSequentialGroup()
+                        .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textfield_login_usuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_loginLayout.createSequentialGroup()
+                                .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(190, 190, 190)
+                                .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panel_loginLayout.setVerticalGroup(
             panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_loginLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_login1)
+                    .addComponent(textfield_login_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_loginLayout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(label_login2))
-                    .addGroup(panel_loginLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label_login1)
-                            .addComponent(textfield_login_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(label_login)
                             .addComponent(textfield_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(btn_login))
+                    .addGroup(panel_loginLayout.createSequentialGroup()
+                        .addComponent(label_login2)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_login)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addComponent(btn_logout)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         btn_login.getAccessibleContext().setAccessibleName("Iniciar Sesión");
@@ -1591,22 +1626,36 @@ public class JFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
-       llenarTabla();
-       actualizaComponentes();
-       limpiarPantalla();
+       if(sentencia != null){
+            String table = getSelectedTable();
+            if(!table.equals("Login")){
+                if(llenarTabla())
+                    actualizaComponentes();
+            }
+            limpiarPantalla();
+       }else{
+           if(tabs.getSelectedIndex() != 0){
+                tabs.setSelectedIndex(0);
+                JOptionPane.showMessageDialog(this, login_message_failed);
+           }
+       }
     }//GEN-LAST:event_tabsStateChanged
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-        try{
-            String sentenciaSQL = getInsertSentencia(getSelectedTable());
-            sentencia.execute(sentenciaSQL);
-            JOptionPane.showMessageDialog(this, "Agregado correctamente");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-            return;
+        if(sentencia != null){
+            try{
+                String sentenciaSQL = getInsertSentencia(getSelectedTable());
+                sentencia.execute(sentenciaSQL);
+                JOptionPane.showMessageDialog(this, "Agregado correctamente");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+                return;
+            }
+            llenarTabla();
+            limpiarPantalla();
+        }else{
+            JOptionPane.showMessageDialog(this, login_message_failed);
         }
-        llenarTabla();
-        limpiarPantalla();
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void datagridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datagridMouseClicked
@@ -1618,38 +1667,45 @@ public class JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_datagridMouseClicked
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
-        int idx = datagrid.getSelectedRow();
-        
-        if(idx != -1){
-            try{
-                String sentenciaSQL = getUpdateSentencia(getSelectedTable(), idx);
-                sentencia.execute(sentenciaSQL);
-                JOptionPane.showMessageDialog(this, "Modificado correctamente");
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-                return;
+        if(sentencia != null){
+            int idx = datagrid.getSelectedRow();
+
+            if(idx != -1){
+                try{
+                    String sentenciaSQL = getUpdateSentencia(getSelectedTable(), idx);
+                    sentencia.execute(sentenciaSQL);
+                    JOptionPane.showMessageDialog(this, "Modificado correctamente");
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage());
+                    return;
+                }
+                llenarTabla();
+                limpiarPantalla();
             }
-            llenarTabla();
-            limpiarPantalla();
+        }else{
+            JOptionPane.showMessageDialog(this, login_message_failed);
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        int idx = datagrid.getSelectedRow();
-        
-        if(idx != -1){
-            try{
-                String sentenciaSQL = getDeleteSentencia(getSelectedTable(), idx);
+        if(sentencia != null){
+            int idx = datagrid.getSelectedRow();
+            if(idx != -1){
+                try{
+                    String sentenciaSQL = getDeleteSentencia(getSelectedTable(), idx);
 
-                sentencia.execute(sentenciaSQL);
-                JOptionPane.showMessageDialog(this, "Eliminado correctamente");
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-                return;
+                    sentencia.execute(sentenciaSQL);
+                    JOptionPane.showMessageDialog(this, "Eliminado correctamente");
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage());
+                    return;
+                }
+                llenarTabla();
+                limpiarPantalla();
             }
-            llenarTabla();
-            limpiarPantalla();
-        }        
+        }else{
+            JOptionPane.showMessageDialog(this, login_message_failed);
+        }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -1658,8 +1714,15 @@ public class JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        // TODO add your handling code here:
+        conectarBD();
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        if(sentencia != null){
+            sentencia = null;
+            label_login2.setText(not_logged_in);
+        }
+    }//GEN-LAST:event_btn_logoutActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1697,6 +1760,7 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_login;
+    private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JComboBox<String> combobox_clase_idempleado;
     private javax.swing.JComboBox<String> combobox_clase_idhorario;
