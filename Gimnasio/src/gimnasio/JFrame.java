@@ -51,7 +51,8 @@ public class JFrame extends javax.swing.JFrame {
             }
         }catch(Exception e){
             datagrid.setModel(new DefaultTableModel());
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            if(!tabla.equals("Login"))
+                JOptionPane.showMessageDialog(this, e.getMessage());
             return false;
         }
         return true;
@@ -779,6 +780,22 @@ public class JFrame extends javax.swing.JFrame {
         btn_login = new javax.swing.JButton();
         label_login2 = new javax.swing.JLabel();
         btn_logout = new javax.swing.JButton();
+        panel_horario = new javax.swing.JPanel();
+        label_horario = new javax.swing.JLabel();
+        textfield_horario_horainicio = new javax.swing.JTextField();
+        label_horario1 = new javax.swing.JLabel();
+        textfield_horario_horafin = new javax.swing.JTextField();
+        panel_empleado = new javax.swing.JPanel();
+        label_empleado1 = new javax.swing.JLabel();
+        textfield_empleado_celular = new javax.swing.JTextField();
+        label_empleado2 = new javax.swing.JLabel();
+        label_empleado3 = new javax.swing.JLabel();
+        textfield_empleado_sueldo = new javax.swing.JTextField();
+        label_empleado4 = new javax.swing.JLabel();
+        textfield_empleado_dias = new javax.swing.JTextField();
+        textfield_empleado_nombre = new javax.swing.JTextField();
+        label_empleado5 = new javax.swing.JLabel();
+        combobox_empleado_idhorario = new javax.swing.JComboBox<>();
         panel_cliente = new javax.swing.JPanel();
         textfield_cliente_nombre = new javax.swing.JTextField();
         label_cliente = new javax.swing.JLabel();
@@ -824,11 +841,13 @@ public class JFrame extends javax.swing.JFrame {
         textfield_pago_fecha = new javax.swing.JTextField();
         combobox_pago_idcliente = new javax.swing.JComboBox<>();
         combobox_pago_idsuscripcion = new javax.swing.JComboBox<>();
-        panel_horario = new javax.swing.JPanel();
-        label_horario = new javax.swing.JLabel();
-        textfield_horario_horainicio = new javax.swing.JTextField();
-        label_horario1 = new javax.swing.JLabel();
-        textfield_horario_horafin = new javax.swing.JTextField();
+        panel_articulo = new javax.swing.JPanel();
+        label_articulo1 = new javax.swing.JLabel();
+        textfield_articulo_nombre = new javax.swing.JTextField();
+        label_articulo2 = new javax.swing.JLabel();
+        textfield_articulo_precio = new javax.swing.JTextField();
+        label_articulo3 = new javax.swing.JLabel();
+        textfield_articulo_existencia = new javax.swing.JTextField();
         panel_venta = new javax.swing.JPanel();
         label_venta = new javax.swing.JLabel();
         label_venta1 = new javax.swing.JLabel();
@@ -853,24 +872,6 @@ public class JFrame extends javax.swing.JFrame {
         label_detallecompra1 = new javax.swing.JLabel();
         textfield_detallecompra_cantidad = new javax.swing.JTextField();
         combobox_detallecompra_idarticulo = new javax.swing.JComboBox<>();
-        panel_articulo = new javax.swing.JPanel();
-        label_articulo1 = new javax.swing.JLabel();
-        textfield_articulo_nombre = new javax.swing.JTextField();
-        label_articulo2 = new javax.swing.JLabel();
-        textfield_articulo_precio = new javax.swing.JTextField();
-        label_articulo3 = new javax.swing.JLabel();
-        textfield_articulo_existencia = new javax.swing.JTextField();
-        panel_empleado = new javax.swing.JPanel();
-        label_empleado1 = new javax.swing.JLabel();
-        textfield_empleado_celular = new javax.swing.JTextField();
-        label_empleado2 = new javax.swing.JLabel();
-        label_empleado3 = new javax.swing.JLabel();
-        textfield_empleado_sueldo = new javax.swing.JTextField();
-        label_empleado4 = new javax.swing.JLabel();
-        textfield_empleado_dias = new javax.swing.JTextField();
-        textfield_empleado_nombre = new javax.swing.JTextField();
-        label_empleado5 = new javax.swing.JLabel();
-        combobox_empleado_idhorario = new javax.swing.JComboBox<>();
         menu = new javax.swing.JScrollPane();
         datagrid = new javax.swing.JTable();
         btn_agregar = new javax.swing.JButton();
@@ -967,6 +968,109 @@ public class JFrame extends javax.swing.JFrame {
         btn_login.getAccessibleContext().setAccessibleName("Iniciar Sesión");
 
         tabs.addTab("Login", panel_login);
+
+        label_horario.setText("HoraInicio:");
+
+        label_horario1.setText("HoraFin:");
+
+        javax.swing.GroupLayout panel_horarioLayout = new javax.swing.GroupLayout(panel_horario);
+        panel_horario.setLayout(panel_horarioLayout);
+        panel_horarioLayout.setHorizontalGroup(
+            panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_horarioLayout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(label_horario)
+                .addGap(30, 30, 30)
+                .addComponent(textfield_horario_horainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(111, 111, 111)
+                .addComponent(label_horario1)
+                .addGap(30, 30, 30)
+                .addComponent(textfield_horario_horafin, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(132, Short.MAX_VALUE))
+        );
+        panel_horarioLayout.setVerticalGroup(
+            panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_horarioLayout.createSequentialGroup()
+                .addContainerGap(74, Short.MAX_VALUE)
+                .addGroup(panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_horario1)
+                        .addComponent(textfield_horario_horafin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_horario)
+                        .addComponent(textfield_horario_horainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(64, 64, 64))
+        );
+
+        tabs.addTab("Horario", panel_horario);
+
+        panel_empleado.setToolTipText("Empleado");
+
+        label_empleado1.setText("IdHorario:");
+
+        label_empleado2.setText("Celular:");
+
+        label_empleado3.setText("Sueldo:");
+
+        label_empleado4.setText("Días:");
+
+        label_empleado5.setText("Nombre:");
+
+        javax.swing.GroupLayout panel_empleadoLayout = new javax.swing.GroupLayout(panel_empleado);
+        panel_empleado.setLayout(panel_empleadoLayout);
+        panel_empleadoLayout.setHorizontalGroup(
+            panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_empleadoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_empleadoLayout.createSequentialGroup()
+                        .addComponent(label_empleado1)
+                        .addGap(29, 29, 29)
+                        .addComponent(combobox_empleado_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_empleadoLayout.createSequentialGroup()
+                        .addComponent(label_empleado5)
+                        .addGap(29, 29, 29)
+                        .addComponent(textfield_empleado_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(57, 57, 57)
+                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label_empleado3)
+                    .addComponent(label_empleado2))
+                .addGap(43, 43, 43)
+                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_empleadoLayout.createSequentialGroup()
+                        .addComponent(textfield_empleado_sueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addComponent(label_empleado4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(textfield_empleado_dias, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(panel_empleadoLayout.createSequentialGroup()
+                        .addComponent(textfield_empleado_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        panel_empleadoLayout.setVerticalGroup(
+            panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_empleadoLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_empleado3)
+                    .addComponent(textfield_empleado_sueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_empleado4)
+                    .addComponent(textfield_empleado_dias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_empleado5)
+                    .addComponent(textfield_empleado_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_empleado1)
+                        .addComponent(combobox_empleado_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_empleado2)
+                        .addComponent(textfield_empleado_celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
+
+        tabs.addTab("Empleado", panel_empleado);
 
         label_cliente.setText("Nombre:");
 
@@ -1249,40 +1353,48 @@ public class JFrame extends javax.swing.JFrame {
 
         tabs.addTab("Pago", panel_pago);
 
-        label_horario.setText("HoraInicio:");
+        label_articulo1.setText("Nombre:");
 
-        label_horario1.setText("HoraFin:");
+        label_articulo2.setText("Precio:");
 
-        javax.swing.GroupLayout panel_horarioLayout = new javax.swing.GroupLayout(panel_horario);
-        panel_horario.setLayout(panel_horarioLayout);
-        panel_horarioLayout.setHorizontalGroup(
-            panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_horarioLayout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(label_horario)
-                .addGap(30, 30, 30)
-                .addComponent(textfield_horario_horainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(111, 111, 111)
-                .addComponent(label_horario1)
-                .addGap(30, 30, 30)
-                .addComponent(textfield_horario_horafin, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+        label_articulo3.setText("Existencia:");
+
+        javax.swing.GroupLayout panel_articuloLayout = new javax.swing.GroupLayout(panel_articulo);
+        panel_articulo.setLayout(panel_articuloLayout);
+        panel_articuloLayout.setHorizontalGroup(
+            panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_articuloLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(label_articulo1)
+                .addGap(29, 29, 29)
+                .addComponent(textfield_articulo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(label_articulo2)
+                .addGap(29, 29, 29)
+                .addComponent(textfield_articulo_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(label_articulo3)
+                .addGap(18, 18, 18)
+                .addComponent(textfield_articulo_existencia, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
         );
-        panel_horarioLayout.setVerticalGroup(
-            panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_horarioLayout.createSequentialGroup()
-                .addContainerGap(74, Short.MAX_VALUE)
-                .addGroup(panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_horario1)
-                        .addComponent(textfield_horario_horafin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_horarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_horario)
-                        .addComponent(textfield_horario_horainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(64, 64, 64))
+        panel_articuloLayout.setVerticalGroup(
+            panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_articuloLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_articulo3)
+                        .addComponent(textfield_articulo_existencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_articulo2)
+                        .addComponent(textfield_articulo_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label_articulo1)
+                        .addComponent(textfield_articulo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
-        tabs.addTab("Horario", panel_horario);
+        tabs.addTab("Articulo", panel_articulo);
 
         label_venta.setText("IdEmpleado:");
 
@@ -1441,117 +1553,6 @@ public class JFrame extends javax.swing.JFrame {
 
         tabs.addTab("DetalleCompra", panel_detallecompra);
 
-        label_articulo1.setText("Nombre:");
-
-        label_articulo2.setText("Precio:");
-
-        label_articulo3.setText("Existencia:");
-
-        javax.swing.GroupLayout panel_articuloLayout = new javax.swing.GroupLayout(panel_articulo);
-        panel_articulo.setLayout(panel_articuloLayout);
-        panel_articuloLayout.setHorizontalGroup(
-            panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_articuloLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(label_articulo1)
-                .addGap(29, 29, 29)
-                .addComponent(textfield_articulo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(label_articulo2)
-                .addGap(29, 29, 29)
-                .addComponent(textfield_articulo_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(label_articulo3)
-                .addGap(18, 18, 18)
-                .addComponent(textfield_articulo_existencia, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59))
-        );
-        panel_articuloLayout.setVerticalGroup(
-            panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_articuloLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_articulo3)
-                        .addComponent(textfield_articulo_existencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_articuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_articulo2)
-                        .addComponent(textfield_articulo_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(label_articulo1)
-                        .addComponent(textfield_articulo_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
-
-        tabs.addTab("Articulo", panel_articulo);
-
-        panel_empleado.setToolTipText("Empleado");
-
-        label_empleado1.setText("IdHorario:");
-
-        label_empleado2.setText("Celular:");
-
-        label_empleado3.setText("Sueldo:");
-
-        label_empleado4.setText("Días:");
-
-        label_empleado5.setText("Nombre:");
-
-        javax.swing.GroupLayout panel_empleadoLayout = new javax.swing.GroupLayout(panel_empleado);
-        panel_empleado.setLayout(panel_empleadoLayout);
-        panel_empleadoLayout.setHorizontalGroup(
-            panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_empleadoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panel_empleadoLayout.createSequentialGroup()
-                        .addComponent(label_empleado1)
-                        .addGap(29, 29, 29)
-                        .addComponent(combobox_empleado_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_empleadoLayout.createSequentialGroup()
-                        .addComponent(label_empleado5)
-                        .addGap(29, 29, 29)
-                        .addComponent(textfield_empleado_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(57, 57, 57)
-                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(label_empleado3)
-                    .addComponent(label_empleado2))
-                .addGap(43, 43, 43)
-                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_empleadoLayout.createSequentialGroup()
-                        .addComponent(textfield_empleado_sueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(label_empleado4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                        .addComponent(textfield_empleado_dias, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(panel_empleadoLayout.createSequentialGroup()
-                        .addComponent(textfield_empleado_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        panel_empleadoLayout.setVerticalGroup(
-            panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_empleadoLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_empleado3)
-                    .addComponent(textfield_empleado_sueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_empleado4)
-                    .addComponent(textfield_empleado_dias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_empleado5)
-                    .addComponent(textfield_empleado_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_empleado1)
-                        .addComponent(combobox_empleado_idhorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_empleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(label_empleado2)
-                        .addComponent(textfield_empleado_celular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-
-        tabs.addTab("Empleado", panel_empleado);
-
         datagrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1627,16 +1628,14 @@ public class JFrame extends javax.swing.JFrame {
 
     private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
        if(sentencia != null){
-            String table = getSelectedTable();
-            if(!table.equals("Login")){
-                if(llenarTabla())
-                    actualizaComponentes();
-            }
+            if(llenarTabla())
+                actualizaComponentes();
             limpiarPantalla();
        }else{
            if(tabs.getSelectedIndex() != 0){
                 tabs.setSelectedIndex(0);
                 JOptionPane.showMessageDialog(this, login_message_failed);
+                limpiarPantalla();
            }
        }
     }//GEN-LAST:event_tabsStateChanged

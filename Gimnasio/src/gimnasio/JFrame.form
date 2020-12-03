@@ -199,6 +199,193 @@
             </Component>
           </SubComponents>
         </Container>
+        <Container class="javax.swing.JPanel" name="panel_horario">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Horario">
+                <Property name="tabTitle" type="java.lang.String" value="Horario"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="label_horario" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_horario_horainicio" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="label_horario1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="textfield_horario_horafin" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace pref="132" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="74" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="label_horario1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_horario_horafin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_horario" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_horario_horainicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_horario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="HoraInicio:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_horario_horainicio">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_horario1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="HoraFin:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_horario_horafin">
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="panel_empleado">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Empleado"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Empleado">
+                <Property name="tabTitle" type="java.lang.String" value="Empleado"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="label_empleado1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="combobox_empleado_idhorario" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="label_empleado5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="textfield_empleado_nombre" min="-2" pref="154" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="label_empleado3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_empleado2" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="textfield_empleado_sueldo" min="-2" pref="154" max="-2" attributes="0"/>
+                              <EmptySpace pref="63" max="32767" attributes="0"/>
+                              <Component id="label_empleado4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="48" max="32767" attributes="0"/>
+                              <Component id="textfield_empleado_dias" min="-2" pref="154" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="textfield_empleado_celular" min="-2" pref="154" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="label_empleado3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_empleado_sueldo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_empleado4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_empleado_dias" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_empleado5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfield_empleado_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="label_empleado1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="combobox_empleado_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="label_empleado2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_empleado_celular" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="57" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="label_empleado1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="IdHorario:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_celular">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Celular:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sueldo:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_sueldo">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="D&#xed;as:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_dias">
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_empleado_nombre">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_empleado5">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nombre:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="combobox_empleado_idhorario">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
         <Container class="javax.swing.JPanel" name="panel_cliente">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -762,11 +949,11 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="panel_horario">
+        <Container class="javax.swing.JPanel" name="panel_articulo">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Horario">
-                <Property name="tabTitle" type="java.lang.String" value="Horario"/>
+              <JTabbedPaneConstraints tabName="Articulo">
+                <Property name="tabTitle" type="java.lang.String" value="Articulo"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -774,52 +961,65 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="label_horario" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="textfield_horario_horainicio" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                      <Component id="label_horario1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="textfield_horario_horafin" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace pref="132" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="label_articulo1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="textfield_articulo_nombre" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="label_articulo2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="textfield_articulo_precio" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace pref="67" max="32767" attributes="0"/>
+                      <Component id="label_articulo3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="textfield_articulo_existencia" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="74" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="label_horario1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_horario_horafin" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="label_articulo3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_articulo_existencia" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="label_horario" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_horario_horainicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="label_articulo2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_articulo_precio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="label_articulo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textfield_articulo_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                      <EmptySpace pref="71" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="label_horario">
+            <Component class="javax.swing.JLabel" name="label_articulo1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="HoraInicio:"/>
+                <Property name="text" type="java.lang.String" value="Nombre:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textfield_horario_horainicio">
+            <Component class="javax.swing.JTextField" name="textfield_articulo_nombre">
             </Component>
-            <Component class="javax.swing.JLabel" name="label_horario1">
+            <Component class="javax.swing.JLabel" name="label_articulo2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="HoraFin:"/>
+                <Property name="text" type="java.lang.String" value="Precio:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textfield_horario_horafin">
+            <Component class="javax.swing.JTextField" name="textfield_articulo_precio">
+            </Component>
+            <Component class="javax.swing.JLabel" name="label_articulo3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Existencia:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textfield_articulo_existencia">
             </Component>
           </SubComponents>
         </Container>
@@ -1133,206 +1333,6 @@
             <Component class="javax.swing.JTextField" name="textfield_detallecompra_cantidad">
             </Component>
             <Component class="javax.swing.JComboBox" name="combobox_detallecompra_idarticulo">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="0"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="panel_articulo">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Articulo">
-                <Property name="tabTitle" type="java.lang.String" value="Articulo"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="label_articulo1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="textfield_articulo_nombre" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="label_articulo2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="textfield_articulo_precio" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace pref="67" max="32767" attributes="0"/>
-                      <Component id="label_articulo3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="textfield_articulo_existencia" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="label_articulo3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_articulo_existencia" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="label_articulo2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_articulo_precio" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="label_articulo1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_articulo_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="71" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="label_articulo1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nombre:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_articulo_nombre">
-            </Component>
-            <Component class="javax.swing.JLabel" name="label_articulo2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Precio:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_articulo_precio">
-            </Component>
-            <Component class="javax.swing.JLabel" name="label_articulo3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Existencia:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_articulo_existencia">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="panel_empleado">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Empleado"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Empleado">
-                <Property name="tabTitle" type="java.lang.String" value="Empleado"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="label_empleado1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Component id="combobox_empleado_idhorario" min="-2" pref="154" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="label_empleado5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Component id="textfield_empleado_nombre" min="-2" pref="154" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="label_empleado3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label_empleado2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="textfield_empleado_sueldo" min="-2" pref="154" max="-2" attributes="0"/>
-                              <EmptySpace pref="63" max="32767" attributes="0"/>
-                              <Component id="label_empleado4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="48" max="32767" attributes="0"/>
-                              <Component id="textfield_empleado_dias" min="-2" pref="154" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="textfield_empleado_celular" min="-2" pref="154" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="label_empleado3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_empleado_sueldo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label_empleado4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_empleado_dias" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="label_empleado5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textfield_empleado_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="label_empleado1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="combobox_empleado_idhorario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="label_empleado2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textfield_empleado_celular" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="57" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="label_empleado1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="IdHorario:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_empleado_celular">
-            </Component>
-            <Component class="javax.swing.JLabel" name="label_empleado2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Celular:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="label_empleado3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Sueldo:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_empleado_sueldo">
-            </Component>
-            <Component class="javax.swing.JLabel" name="label_empleado4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="D&#xed;as:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_empleado_dias">
-            </Component>
-            <Component class="javax.swing.JTextField" name="textfield_empleado_nombre">
-            </Component>
-            <Component class="javax.swing.JLabel" name="label_empleado5">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nombre:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="combobox_empleado_idhorario">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>
