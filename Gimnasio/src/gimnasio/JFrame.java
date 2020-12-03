@@ -217,6 +217,12 @@ public class JFrame extends javax.swing.JFrame {
     public void actualizaFormulario(int index){
         String tabla = getSelectedTable();
         switch(tabla){
+            case "Horario":
+                textfield_horario_horainicio.setText(
+                        datagrid.getValueAt(index, 1).toString());
+                textfield_horario_horafin.setText(
+                        datagrid.getValueAt(index, 2).toString());
+                break;
             case "Articulo":
                 String articulo_nombre = datagrid.getValueAt(index,1).toString();
                 String articulo_precio = datagrid.getValueAt(index,2).toString();
@@ -313,10 +319,10 @@ public class JFrame extends javax.swing.JFrame {
                 
                 combobox_venta_iddetalleventa.setSelectedIndex(
                         getIndexOfIDInComboBox(combobox_venta_iddetalleventa, 
-                                datagrid.getValueAt(index, 3).toString()));
+                                datagrid.getValueAt(index, 2).toString()));
                 
                 textfield_venta_fecha.setText(
-                        datagrid.getValueAt(index, 4).toString());
+                        datagrid.getValueAt(index, 3).toString());
                 break;
             case "DetalleVenta":
                 combobox_detalleventa_idarticulo.setSelectedIndex(
@@ -334,10 +340,10 @@ public class JFrame extends javax.swing.JFrame {
                 
                 combobox_compra_iddetallecompra.setSelectedIndex(
                         getIndexOfIDInComboBox(combobox_compra_iddetallecompra, 
-                                datagrid.getValueAt(index, 3).toString()));
+                                datagrid.getValueAt(index, 2).toString()));
                 
                 textfield_compra_fecha.setText(
-                        datagrid.getValueAt(index, 4).toString());
+                        datagrid.getValueAt(index, 3).toString());
                 break;
             case "DetalleCompra":
                 combobox_detallecompra_idarticulo.setSelectedIndex(
@@ -451,8 +457,8 @@ public class JFrame extends javax.swing.JFrame {
                         + "ON e.IdHorario = h.IdHorario";
                 break;
             case "Venta":
-                sentencia = "SELECT v.IdVenta, v.IdEmpleado, "
-                        + "e.Nombre NombreEmpleado, "
+                sentencia = "SELECT v.IdVenta, "
+                        + "CONCAT(v.IdEmpleado, ' ' ,e.Nombre) AS Empleado, "
                         + "v.IdDetalleVenta, v.Fecha "
                         + "FROM gimnasio.Venta v "
                         + "INNER JOIN gimnasio.Empleado e "
@@ -467,8 +473,8 @@ public class JFrame extends javax.swing.JFrame {
                         + "ON dv.IdArticulo = a.IdArticulo";
                 break;
             case "Compra":
-                sentencia = "SELECT c.IdCompra, c.IdEmpleado, "
-                        + "e.Nombre NombreEmpleado, "
+                sentencia = "SELECT c.IdCompra, "
+                         + "CONCAT(c.IdEmpleado, ' ' ,e.Nombre) AS Empleado, "
                         + "c.IdDetalleCompra, c.Fecha "
                         + "FROM gimnasio.Compra c "
                         + "INNER JOIN gimnasio.Empleado e "
