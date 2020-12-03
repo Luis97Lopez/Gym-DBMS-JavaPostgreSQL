@@ -466,8 +466,8 @@
                       <EmptySpace pref="123" max="32767" attributes="0"/>
                       <Component id="label_inscripcion1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="combobox_inscripcion_idclase" min="-2" pref="154" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="combobox_inscripcion_idclase" min="-2" pref="189" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="label_inscripcion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="combobox_inscripcion_idcliente" min="-2" pref="154" max="-2" attributes="0"/>

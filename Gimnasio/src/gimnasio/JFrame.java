@@ -223,17 +223,17 @@ public class JFrame extends javax.swing.JFrame {
                                 datagrid.getValueAt(index, 1).toString()));
                 combobox_suscripcion_idcliente.setSelectedIndex(
                         getIndexOfIDInComboBox(combobox_suscripcion_idcliente, 
-                                datagrid.getValueAt(index, 3).toString()));
+                                datagrid.getValueAt(index, 2).toString()));
                 textfield_suscripcion_precio.setText(
-                        datagrid.getValueAt(index, 5).toString());
+                        datagrid.getValueAt(index, 3).toString());
                 textfield_suscripcion_duracion.setText(
-                        datagrid.getValueAt(index, 6).toString());
+                        datagrid.getValueAt(index, 4).toString());
                 textfield_suscripcion_tipo.setText(
-                        datagrid.getValueAt(index, 7).toString());
+                        datagrid.getValueAt(index, 5).toString());
                 textfield_suscripcion_fecha.setText(
-                        datagrid.getValueAt(index, 8).toString());
+                        datagrid.getValueAt(index, 6).toString());
                 textfield_suscripcion_estado.setText(
-                        datagrid.getValueAt(index, 9).toString());
+                        datagrid.getValueAt(index, 7).toString());
                 break;
             case "Clase":
                 combobox_clase_idempleado.setSelectedIndex(
@@ -242,7 +242,7 @@ public class JFrame extends javax.swing.JFrame {
                 
                 combobox_clase_idhorario.setSelectedIndex(
                         getIndexOfIDInComboBox(combobox_clase_idhorario, 
-                                datagrid.getValueAt(index, 5).toString()));
+                                datagrid.getValueAt(index, 4).toString()));
                 
                 textfield_clase_nombre.setText(
                         datagrid.getValueAt(index, 1).toString());
@@ -253,7 +253,7 @@ public class JFrame extends javax.swing.JFrame {
             case "Inscripcion":
                 combobox_inscripcion_idcliente.setSelectedIndex(
                         getIndexOfIDInComboBox(combobox_inscripcion_idcliente, 
-                                datagrid.getValueAt(index, 3).toString()));
+                                datagrid.getValueAt(index, 2).toString()));
                 
                 combobox_inscripcion_idclase.setSelectedIndex(
                         getIndexOfIDInComboBox(combobox_inscripcion_idclase, 
@@ -269,9 +269,9 @@ public class JFrame extends javax.swing.JFrame {
                                 datagrid.getValueAt(index, 2).toString()));
                 
                 textfield_pago_total.setText(
-                        datagrid.getValueAt(index, 4).toString());
+                        datagrid.getValueAt(index, 3).toString());
                 textfield_pago_fecha.setText(
-                        datagrid.getValueAt(index, 5).toString());
+                        datagrid.getValueAt(index, 4).toString());
                 break;
             case "Empleado":
                 combobox_empleado_idhorario.setSelectedIndex(
@@ -281,11 +281,11 @@ public class JFrame extends javax.swing.JFrame {
                 textfield_empleado_nombre.setText(
                         datagrid.getValueAt(index, 1).toString());
                 textfield_empleado_sueldo.setText(
-                        datagrid.getValueAt(index, 5).toString());
-                textfield_empleado_celular.setText(
                         datagrid.getValueAt(index, 4).toString());
+                textfield_empleado_celular.setText(
+                        datagrid.getValueAt(index, 3).toString());
                 textfield_empleado_dias.setText(
-                        datagrid.getValueAt(index, 6).toString());
+                        datagrid.getValueAt(index, 5).toString());
                 break;
             case "Venta":
                 combobox_venta_idempleado.setSelectedIndex(
@@ -305,7 +305,7 @@ public class JFrame extends javax.swing.JFrame {
                                 datagrid.getValueAt(index, 1).toString()));
                 
                 textfield_detalleventa_cantidad.setText(
-                        datagrid.getValueAt(index, 3).toString());
+                        datagrid.getValueAt(index, 2).toString());
                  
                 break;
             case "Compra":
@@ -326,7 +326,7 @@ public class JFrame extends javax.swing.JFrame {
                                 datagrid.getValueAt(index, 1).toString()));
                 
                 textfield_detallecompra_cantidad.setText(
-                        datagrid.getValueAt(index, 3).toString());
+                        datagrid.getValueAt(index, 2).toString());
                  
                 break;
         }
@@ -373,17 +373,17 @@ public class JFrame extends javax.swing.JFrame {
         
         switch(selected_table){
             case "Cliente":
-                sentencia = "SELECT c.IdCliente, c.Nombre, c.Direccion, c.IdEmpleado, "
-                        + "e.Nombre AS NombreEmpleado "
+                sentencia = "SELECT c.IdCliente, c.Nombre, c.Direccion, "
+                        + "CONCAT(c.IdEmpleado, ' ',e.Nombre) AS Empleado "
                         + "FROM gimnasio.Cliente c "
                         + "INNER JOIN gimnasio.Empleado e "
                         + "ON c.IdEmpleado = e.IdEmpleado";
                 break;
             case "Suscripcion":
-                sentencia = "SELECT s.IdSuscripcion, s.IdEmpleado, "
-                        + "e.Nombre NombreEmpleado, s.IdCliente, c.Nombre "
-                        + "NombreCliente, s.Precio, s.Duracion, s.Tipo, s.Fecha, "
-                        + "s.Estado "
+                sentencia = "SELECT s.IdSuscripcion, "
+                        + "CONCAT(s.IdEmpleado, ' ',e.Nombre) AS Empleado, "
+                        + "CONCAT(s.IdCliente, ' ',c.Nombre) AS Cliente, "
+                        + "s.Precio, s.Duracion, s.Tipo, s.Fecha, s.Estado "
                         + "FROM gimnasio.Suscripcion s "
                         + "INNER JOIN gimnasio.Empleado e "
                         + "ON s.IdEmpleado = e.IdEmpleado "
@@ -392,9 +392,9 @@ public class JFrame extends javax.swing.JFrame {
                 break;
             case "Clase":
                 sentencia = "SELECT c.IdClase, c.Nombre, c.Cupo, "
-                        + "c.IdEmpleado, e.Nombre NombreEmpleado, "
-                        + "c.IdHorario,"
-                        + "CONCAT(h.HoraInicio, ' - ' ,h.HoraFin) as Horario "
+                        + "CONCAT(c.IdEmpleado, ' ',e.Nombre) AS Empleado, "
+                        + "CONCAT(c.IdHorario,' ',h.HoraInicio,'-', h.HoraFin) "
+                        + "as Horario "
                         + "FROM gimnasio.Clase c "
                         + "INNER JOIN gimnasio.Horario h "
                         + "ON c.IdHorario = h.IdHorario "
@@ -402,25 +402,30 @@ public class JFrame extends javax.swing.JFrame {
                         + "ON c.IdEmpleado = e.IdEmpleado";
                 break;
             case "Inscripcion":
-                sentencia = "SELECT i.IdInscripcion, i.IdClase, "
-                        + "cs.Nombre NombreClase, i.IdCliente, "
-                        + "ct.Nombre NombreCliente "
+                sentencia = "SELECT i.IdInscripcion, "
+                        + "CONCAT(i.IdClase,' ',cs.Nombre, ' ', h.HoraInicio, "
+                        + "'-', h.HoraFin) AS Clase, "
+                        + "CONCAT(i.IdCliente, ' ', ct.Nombre) AS Cliente "
                         + "FROM gimnasio.Inscripcion i "
                         + "INNER JOIN gimnasio.Clase cs "
                         + "ON i.IdClase = cs.IdClase "
                         + "INNER JOIN gimnasio.Cliente ct "
-                        + "ON i.IdCliente = ct.IdCliente";
+                        + "ON i.IdCliente = ct.IdCliente "
+                        + "INNER JOIN gimnasio.Horario h "
+                        + "ON h.IdHorario = cs.IdHorario";
                 break;
             case "Pago":
-                sentencia = "SELECT p.IdPago, p.IdSuscripcion, p.IdCliente, "
-                        + "c.Nombre NombreCliente, p.Total, p.Fecha "
+                sentencia = "SELECT p.IdPago, p.IdSuscripcion, "
+                        + "CONCAT(p.IdCliente, ' ', c.Nombre) AS Cliente,  "
+                        + "p.Total, p.Fecha "
                         + "FROM gimnasio.Pago p "
                         + "INNER JOIN gimnasio.Cliente c "
                         + "ON p.IdCliente = c.IdCliente";
                 break;
             case "Empleado":
-                sentencia = "SELECT e.IdEmpleado, e.Nombre, e.IdHorario, "
-                        + "CONCAT(h.HoraInicio, ' - ' ,h.HoraFin) as Horario, "
+                sentencia = "SELECT e.IdEmpleado, e.Nombre, "
+                        + "CONCAT(e.IdHorario, ' ', h.HoraInicio, "
+                        + "'-' ,h.HoraFin) AS Horario, "
                         + "e.Celular, e.Sueldo, e.Dias "
                         + "FROM gimnasio.Empleado e "
                         + "INNER JOIN gimnasio.Horario h "
@@ -435,8 +440,9 @@ public class JFrame extends javax.swing.JFrame {
                         + "ON v.IdEmpleado = e.IdEmpleado";
                 break;
             case "DetalleVenta":
-                sentencia = "SELECT dv.IdDetalleVenta, dv.IdArticulo, "
-                        + "a.Nombre NombreArticulo, dv.Cantidad, dv.Total "
+                sentencia = "SELECT dv.IdDetalleVenta, "
+                        + "CONCAT(dv.IdArticulo, ' ' ,a.Nombre ) AS Articulo, "
+                        + "dv.Cantidad, dv.Total "
                         + "FROM gimnasio.DetalleVenta dv "
                         + "INNER JOIN gimnasio.Articulo a "
                         + "ON dv.IdArticulo = a.IdArticulo";
@@ -450,8 +456,9 @@ public class JFrame extends javax.swing.JFrame {
                         + "ON c.IdEmpleado = e.IdEmpleado";
                 break;
             case "DetalleCompra":
-                sentencia = "SELECT dc.IdDetalleCompra, dc.IdArticulo, "
-                        + "a.Nombre NombreArticulo, dc.Cantidad, dc.Total "
+                sentencia = "SELECT dc.IdDetalleCompra, "
+                        + "CONCAT(dc.IdArticulo, ' ' ,a.Nombre ) AS Articulo, "
+                        + "dc.Cantidad, dc.Total "
                         + "FROM gimnasio.DetalleCompra dc "
                         + "INNER JOIN gimnasio.Articulo a "
                         + "ON dc.IdArticulo = a.IdArticulo";
@@ -660,7 +667,11 @@ public class JFrame extends javax.swing.JFrame {
                         + "FROM gimnasio.Horario";
                 break;
             case "Clase":
-                query = "SELECT IdClase, Nombre FROM gimnasio.Clase";
+                query = "SELECT IdClase, Nombre, "
+                        + "CONCAT(h.HoraInicio, '-', h.HoraFin) AS Horario "
+                        + "FROM gimnasio.Clase c "
+                        + "INNER JOIN gimnasio.Horario h "
+                        + "ON c.IdHorario=h.IdHorario";
                 break;
             case "Suscripcion":
                 query = "SELECT IdSuscripcion FROM gimnasio.Suscripcion";
@@ -722,7 +733,8 @@ public class JFrame extends javax.swing.JFrame {
         }
     }
     
-    public int getIndexOfIDInComboBox(JComboBox c, String id){
+    public int getIndexOfIDInComboBox(JComboBox c, String all){
+        String id = all.split("\\s+")[0];
         int n = c.getItemCount();
         for(int i = 0; i < n; i++){
             String temp = getIDOfComboboxElement(c, i);
@@ -1056,8 +1068,8 @@ public class JFrame extends javax.swing.JFrame {
                 .addContainerGap(123, Short.MAX_VALUE)
                 .addComponent(label_inscripcion1)
                 .addGap(36, 36, 36)
-                .addComponent(combobox_inscripcion_idclase, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
+                .addComponent(combobox_inscripcion_idclase, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
                 .addComponent(label_inscripcion)
                 .addGap(35, 35, 35)
                 .addComponent(combobox_inscripcion_idcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
