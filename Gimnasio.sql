@@ -264,6 +264,21 @@ GRANT USAGE ON SCHEMA gimnasio TO empleado;
 GRANT gerente TO user_gerente;
 GRANT empleado TO user_empleado;
 
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE 
+gimnasio.Cliente, gimnasio.Suscripcion, gimnasio.Clase, gimnasio.Inscripcion, 
+gimnasio.Horario, gimnasio.Pago, gimnasio.Venta, gimnasio.DetalleVenta, 
+gimnasio.Compra, gimnasio.DetalleCompra, gimnasio.Articulo, gimnasio.Empleado 
+TO gerente;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO gerente;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA gimnasio TO empleado;
+GRANT INSERT, UPDATE, DELETE ON TABLE 
+gimnasio.Cliente, gimnasio.Suscripcion, gimnasio.Inscripcion, gimnasio.Pago, 
+gimnasio.Venta, gimnasio.DetalleVenta, gimnasio.Compra, gimnasio.DetalleCompra, 
+gimnasio.Articulo TO empleado;
+
+GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO gerente;
+
 
 INSERT INTO gimnasio.Articulo (Nombre, Precio, Existencia)
 VALUES ('Pesas', 1000.1, '1');
