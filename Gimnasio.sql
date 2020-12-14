@@ -116,51 +116,51 @@ CREATE TABLE gimnasio.Articulo(
 CREATE TABLE gimnasio.DetalleVenta(
 
 	IdDetalleVenta BIGSERIAL NOT NULL,
+	IdVenta BIGINT NOT NULL,
 	IdArticulo BIGINT NOT NULL,
 	Cantidad INT NOT NULL,
-	Total DECIMAL,
+	Subtotal DECIMAL,
 
 	CONSTRAINT PK_DetalleVenta PRIMARY KEY (IdDetalleVenta),
-	CONSTRAINT FK_Articulo1 FOREIGN KEY (IdArticulo) REFERENCES gimnasio.Articulo(IdArticulo)
-
+	CONSTRAINT FK_Articulo1 FOREIGN KEY (IdArticulo) REFERENCES gimnasio.Articulo(IdArticulo),
+	CONSTRAINT FK_Venta FOREIGN KEY (IdVenta) REFERENCES gimnasio.Venta(IdVenta)
 );
 
 CREATE TABLE gimnasio.Venta(
 
 	IdVenta BIGSERIAL NOT NULL,
 	IdEmpleado BIGINT NOT NULL,
-	IdDetalleVenta BIGINT NOT NULL,
 	Fecha DATE NOT NULL,
+	Total DECIMAL,
 
 	CONSTRAINT PK_Venta PRIMARY KEY (IdVenta),
-	CONSTRAINT FK_Empleado1 FOREIGN KEY (IdEmpleado) REFERENCES gimnasio.Empleado(IdEmpleado),
-	CONSTRAINT FK_DetalleVenta FOREIGN KEY (IdDetalleVenta) REFERENCES gimnasio.DetalleVenta(IdDetalleVenta)
-
+	CONSTRAINT FK_Empleado1 FOREIGN KEY (IdEmpleado) REFERENCES gimnasio.Empleado(IdEmpleado)
+	
 );
 
 CREATE TABLE gimnasio.DetalleCompra(
 
 	IdDetalleCompra BIGSERIAL NOT NULL,
+	IdCompra BIGINT NOT NULL,
 	IdArticulo BIGINT NOT NULL,
 	Cantidad INT NOT NULL,
-	Total DECIMAL,
+	Subtotal DECIMAL,
 
 	CONSTRAINT PK_DetalleCompra PRIMARY KEY (IdDetalleCompra),
-	CONSTRAINT FK_Articulo2 FOREIGN KEY (IdArticulo) REFERENCES gimnasio.Articulo(IdArticulo)
-
+	CONSTRAINT FK_Articulo2 FOREIGN KEY (IdArticulo) REFERENCES gimnasio.Articulo(IdArticulo),
+	CONSTRAINT FK_Compra FOREIGN KEY (IdCompra) REFERENCES gimnasio.Compra(IdCompra)
 );
 
 CREATE TABLE gimnasio.Compra(
 
 	IdCompra BIGSERIAL NOT NULL,
 	IdEmpleado BIGINT NOT NULL,
-	IdDetalleCompra BIGINT NOT NULL,
 	Fecha DATE NOT NULL,
+	Total DECIMAL,
 
 	CONSTRAINT PK_Compra PRIMARY KEY (IdCompra),
-	CONSTRAINT FK_Empleado2 FOREIGN KEY (IdEmpleado) REFERENCES gimnasio.Empleado(IdEmpleado),
-	CONSTRAINT FK_DetalleCompra FOREIGN KEY (IdDetalleCompra) REFERENCES gimnasio.DetalleCompra(IdDetalleCompra)
-
+	CONSTRAINT FK_Empleado2 FOREIGN KEY (IdEmpleado) REFERENCES gimnasio.Empleado(IdEmpleado)
+	
 );
 
 alter table gimnasio.Empleado
@@ -214,8 +214,11 @@ AS $$
 	DECLARE
 		
 	BEGIN
-	   	NEW.Total := NEW.cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=NEW.IdArticulo);
+	   	NEW.Subtotal := NEW.cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=NEW.IdArticulo);
 		
+		UPDATE gimnasio.Compra
+		SET Total = NEW.Subtotal * (1.16)
+		WHERE IdCompra=NEW.IdCompra;
 		RETURN NEW;
 	END;
 $$
@@ -233,8 +236,11 @@ AS $$
 	DECLARE
 		
 	BEGIN
-	   	NEW.Total := NEW.cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=NEW.IdArticulo);
+	   	NEW.Subtotal := NEW.cantidad * (SELECT Precio FROM gimnasio.Articulo WHERE IdArticulo=NEW.IdArticulo);
 		
+		UPDATE gimnasio.Venta
+		SET Total = NEW.Subtotal * (1.16)
+		WHERE IdVenta=NEW.IdVenta;
 		RETURN NEW;
 	END;
 $$
@@ -280,6 +286,10 @@ gimnasio.Articulo TO empleado;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO gerente;
 
 
-INSERT INTO gimnasio.Articulo (Nombre, Precio, Existencia)
-VALUES ('Pesas', 1000.1, '1');
+INSERT INTO gimnasio.Venta (IdEmpleado, Fecha)
+VALUES ('1','2020-12-12');
 
+select * from gimnasio.venta;
+
+INSERT INTO gimnasio.DetalleVenta (IdVenta, IdArticulo, Cantidad)
+VALUES ('1','1','10');
