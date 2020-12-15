@@ -114,14 +114,11 @@ CREATE TABLE gimnasio.Articulo(
 );
 
 CREATE TABLE gimnasio.DetalleVenta(
-
-	IdDetalleVenta BIGSERIAL NOT NULL,
 	IdVenta BIGINT NOT NULL,
 	IdArticulo BIGINT NOT NULL,
 	Cantidad INT NOT NULL,
 	Subtotal DECIMAL,
 
-	CONSTRAINT PK_DetalleVenta PRIMARY KEY (IdDetalleVenta),
 	CONSTRAINT FK_Articulo1 FOREIGN KEY (IdArticulo) REFERENCES gimnasio.Articulo(IdArticulo),
 	CONSTRAINT FK_Venta FOREIGN KEY (IdVenta) REFERENCES gimnasio.Venta(IdVenta)
 );
@@ -138,18 +135,17 @@ CREATE TABLE gimnasio.Venta(
 	
 );
 
-CREATE TABLE gimnasio.DetalleCompra(
 
-	IdDetalleCompra BIGSERIAL NOT NULL,
+CREATE TABLE gimnasio.DetalleCompra(
 	IdCompra BIGINT NOT NULL,
 	IdArticulo BIGINT NOT NULL,
 	Cantidad INT NOT NULL,
 	Subtotal DECIMAL,
 
-	CONSTRAINT PK_DetalleCompra PRIMARY KEY (IdDetalleCompra),
 	CONSTRAINT FK_Articulo2 FOREIGN KEY (IdArticulo) REFERENCES gimnasio.Articulo(IdArticulo),
 	CONSTRAINT FK_Compra FOREIGN KEY (IdCompra) REFERENCES gimnasio.Compra(IdCompra)
 );
+
 
 CREATE TABLE gimnasio.Compra(
 
@@ -224,6 +220,7 @@ AS $$
 $$
 LANGUAGE plpgsql;
 
+
 CREATE TRIGGER calcula_total_compra
 BEFORE INSERT or UPDATE
 ON gimnasio.DetalleCompra
@@ -277,13 +274,16 @@ gimnasio.Compra, gimnasio.DetalleCompra, gimnasio.Articulo, gimnasio.Empleado
 TO gerente;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO gerente;
 
-GRANT SELECT ON ALL TABLES IN SCHEMA gimnasio TO empleado;
-GRANT INSERT, UPDATE, DELETE ON TABLE 
+GRANT SELECT ON TABLE
+gimnasio.Empleado, gimnasio.Clase
+TO empleado;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE 
 gimnasio.Cliente, gimnasio.Suscripcion, gimnasio.Inscripcion, gimnasio.Pago, 
 gimnasio.Venta, gimnasio.DetalleVenta, gimnasio.Compra, gimnasio.DetalleCompra, 
 gimnasio.Articulo TO empleado;
 
-GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO gerente;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO empleado;
 
 
 INSERT INTO gimnasio.Venta (IdEmpleado, Fecha)

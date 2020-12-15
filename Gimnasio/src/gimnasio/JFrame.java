@@ -5,36 +5,15 @@ import javax.swing.table.*;
 import java.util.Vector;
 
 public class JFrame extends javax.swing.JFrame {
-    String bd = "jdbc:postgresql://localhost:5432/Gimnasio";
-    Connection conexion = null;
     Statement sentencia = null;
     String login_message_failed = "No has iniciado sesión.";
     String login_message_ok = "Inicio de sesión para el Usuario: ";
     String logged_in = "Hola, ";
     String not_logged_in = "No has iniciado sesión.";
     
-    public JFrame() {
+    public JFrame(Statement sentencia) {
         initComponents();
-        //conectarBD();
-    }
-
-    public void conectarBD(){
-        String user = textfield_login_usuario.getText();
-        String password = textfield_login_password.getText();
-        
-        try{
-            conexion = DriverManager.getConnection(bd, user, password);
-            sentencia = conexion.createStatement();
-            
-            label_login2.setText(logged_in + user);
-            JOptionPane.showMessageDialog(this, login_message_ok + user);
-            
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
-        
-        textfield_login_usuario.setText("");
-        textfield_login_password.setText("");
+        this.sentencia = sentencia;
     }
     
     //              Métodos Auxiliares para la GridView y Componentes ↓
@@ -61,10 +40,6 @@ public class JFrame extends javax.swing.JFrame {
     public void limpiarPantalla(){
         String tabla = getSelectedTable();
         switch(tabla){
-            case "Login":
-                textfield_login_usuario.setText("");
-                textfield_login_password.setText("");
-                break;
             case "Articulo":
                 textfield_articulo_nombre.setText("");
                 textfield_articulo_precio.setText("");
@@ -459,15 +434,15 @@ public class JFrame extends javax.swing.JFrame {
             case "Venta":
                 sentencia = "SELECT v.IdVenta, "
                         + "CONCAT(v.IdEmpleado, ' ' ,e.Nombre) AS Empleado, "
-                        + "v.Fecha "
+                        + "v.Fecha, v.Total "
                         + "FROM gimnasio.Venta v "
                         + "INNER JOIN gimnasio.Empleado e "
                         + "ON v.IdEmpleado = e.IdEmpleado";
                 break;
             case "DetalleVenta":
-                sentencia = "SELECT dv.IdDetalleVenta, dv.IdVenta, "
+                sentencia = "SELECT dv.IdVenta, "
                         + "CONCAT(dv.IdArticulo, ' ' ,a.Nombre ) AS Articulo, "
-                        + "dv.Cantidad, dv.Total "
+                        + "dv.Cantidad, dv.Subtotal "
                         + "FROM gimnasio.DetalleVenta dv "
                         + "INNER JOIN gimnasio.Articulo a "
                         + "ON dv.IdArticulo = a.IdArticulo";
@@ -475,15 +450,15 @@ public class JFrame extends javax.swing.JFrame {
             case "Compra":
                 sentencia = "SELECT c.IdCompra, "
                          + "CONCAT(c.IdEmpleado, ' ' ,e.Nombre) AS Empleado, "
-                        + "c.Fecha "
+                        + "c.Fecha, c.Total "
                         + "FROM gimnasio.Compra c "
                         + "INNER JOIN gimnasio.Empleado e "
                         + "ON c.IdEmpleado = e.IdEmpleado";
                 break;
             case "DetalleCompra":
-                sentencia = "SELECT dc.IdDetalleCompra, dc.IdCompra, "
+                sentencia = "SELECT dc.IdCompra, "
                         + "CONCAT(dc.IdArticulo, ' ' ,a.Nombre ) AS Articulo, "
-                        + "dc.Cantidad, dc.Total "
+                        + "dc.Cantidad, dc.Subtotal "
                         + "FROM gimnasio.DetalleCompra dc "
                         + "INNER JOIN gimnasio.Articulo a "
                         + "ON dc.IdArticulo = a.IdArticulo";
@@ -778,14 +753,6 @@ public class JFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         tabs = new javax.swing.JTabbedPane();
-        panel_login = new javax.swing.JPanel();
-        label_login1 = new javax.swing.JLabel();
-        textfield_login_usuario = new javax.swing.JTextField();
-        textfield_login_password = new javax.swing.JTextField();
-        label_login = new javax.swing.JLabel();
-        btn_login = new javax.swing.JButton();
-        label_login2 = new javax.swing.JLabel();
-        btn_logout = new javax.swing.JButton();
         panel_horario = new javax.swing.JPanel();
         label_horario = new javax.swing.JLabel();
         textfield_horario_horainicio = new javax.swing.JTextField();
@@ -885,6 +852,7 @@ public class JFrame extends javax.swing.JFrame {
         btn_agregar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
+        btn_logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gimnasio DB");
@@ -903,77 +871,6 @@ public class JFrame extends javax.swing.JFrame {
                 tabsStateChanged(evt);
             }
         });
-
-        label_login1.setText("Usuario:");
-
-        label_login.setText("Contraseña:");
-
-        btn_login.setText("Iniciar Sesión");
-        btn_login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_loginActionPerformed(evt);
-            }
-        });
-
-        label_login2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        label_login2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_login2.setText("No has iniciado sesión.");
-
-        btn_logout.setText("Cerrar Sesión");
-        btn_logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_logoutActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panel_loginLayout = new javax.swing.GroupLayout(panel_login);
-        panel_login.setLayout(panel_loginLayout);
-        panel_loginLayout.setHorizontalGroup(
-            panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_loginLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label_login)
-                    .addComponent(label_login1))
-                .addGap(29, 29, 29)
-                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panel_loginLayout.createSequentialGroup()
-                        .addComponent(textfield_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                        .addComponent(label_login2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_loginLayout.createSequentialGroup()
-                        .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textfield_login_usuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_loginLayout.createSequentialGroup()
-                                .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(190, 190, 190)
-                                .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        panel_loginLayout.setVerticalGroup(
-            panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_loginLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label_login1)
-                    .addComponent(textfield_login_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_loginLayout.createSequentialGroup()
-                        .addGroup(panel_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label_login)
-                            .addComponent(textfield_login_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addComponent(btn_login))
-                    .addGroup(panel_loginLayout.createSequentialGroup()
-                        .addComponent(label_login2)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_logout)))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-
-        tabs.addTab("Login", panel_login);
 
         label_horario.setText("HoraInicio:");
 
@@ -1519,11 +1416,10 @@ public class JFrame extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(combobox_compra_idempleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(label_compra2)
-                            .addComponent(textfield_compra_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(label_compra)))
+                    .addGroup(panel_compraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_compra2)
+                        .addComponent(textfield_compra_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label_compra))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
 
@@ -1610,16 +1506,17 @@ public class JFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_logout.setText("Cerrar Sesión");
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1628,13 +1525,26 @@ public class JFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(9, 9, 9)
+                .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_agregar)
                     .addComponent(btn_modificar)
@@ -1733,14 +1643,11 @@ public class JFrame extends javax.swing.JFrame {
         actualizaComponentes();
     }//GEN-LAST:event_formWindowOpened
 
-    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        conectarBD();
-    }//GEN-LAST:event_btn_loginActionPerformed
-
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
         if(sentencia != null){
-            sentencia = null;
-            label_login2.setText(not_logged_in);
+            this.setVisible(false);
+            new login().setVisible(true);
+            dispose();
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
@@ -1771,7 +1678,7 @@ public class JFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrame().setVisible(true);
+                //new JFrame().setVisible(true);
             }
         });
     }
@@ -1779,7 +1686,6 @@ public class JFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
-    private javax.swing.JButton btn_login;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JComboBox<String> combobox_clase_idempleado;
@@ -1828,9 +1734,6 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_horario1;
     private javax.swing.JLabel label_inscripcion;
     private javax.swing.JLabel label_inscripcion1;
-    private javax.swing.JLabel label_login;
-    private javax.swing.JLabel label_login1;
-    private javax.swing.JLabel label_login2;
     private javax.swing.JLabel label_pago;
     private javax.swing.JLabel label_pago1;
     private javax.swing.JLabel label_pago2;
@@ -1854,7 +1757,6 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_empleado;
     private javax.swing.JPanel panel_horario;
     private javax.swing.JPanel panel_inscripcion;
-    private javax.swing.JPanel panel_login;
     private javax.swing.JPanel panel_pago;
     private javax.swing.JPanel panel_suscripcion;
     private javax.swing.JPanel panel_venta;
@@ -1875,8 +1777,6 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_empleado_sueldo;
     private javax.swing.JTextField textfield_horario_horafin;
     private javax.swing.JTextField textfield_horario_horainicio;
-    private javax.swing.JTextField textfield_login_password;
-    private javax.swing.JTextField textfield_login_usuario;
     private javax.swing.JTextField textfield_pago_fecha;
     private javax.swing.JTextField textfield_pago_total;
     private javax.swing.JTextField textfield_suscripcion_duracion;
