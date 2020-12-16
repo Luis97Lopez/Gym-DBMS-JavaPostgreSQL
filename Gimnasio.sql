@@ -275,13 +275,12 @@ TO gerente;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO gerente;
 
 GRANT SELECT ON TABLE
-gimnasio.Empleado, gimnasio.Clase
+gimnasio.Empleado, gimnasio.Clase, gimnasio.Articulo, gimnasio.Horario
 TO empleado;
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE 
 gimnasio.Cliente, gimnasio.Suscripcion, gimnasio.Inscripcion, gimnasio.Pago, 
-gimnasio.Venta, gimnasio.DetalleVenta, gimnasio.Compra, gimnasio.DetalleCompra, 
-gimnasio.Articulo TO empleado;
+gimnasio.Venta, gimnasio.DetalleVenta, gimnasio.Compra, gimnasio.DetalleCompra TO empleado;
 
 GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO empleado;
 

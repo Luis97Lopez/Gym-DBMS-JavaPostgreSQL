@@ -30,7 +30,7 @@ public class JFrame extends javax.swing.JFrame {
             }
         }catch(Exception e){
             datagrid.setModel(new DefaultTableModel());
-            if(!tabla.equals("Login"))
+            if(!tabla.equals("Login") && !tabla.equals("Reporte1") && !tabla.equals("Reporte2"))
                 JOptionPane.showMessageDialog(this, e.getMessage());
             return false;
         }
@@ -104,6 +104,14 @@ public class JFrame extends javax.swing.JFrame {
                 combobox_detallecompra_idcompra.setSelectedIndex(0);
                 textfield_detallecompra_cantidad.setText("");
             break;
+            case "Reporte1":
+                textfield_reporte1_ventasmin.setText("");
+                textfield_reporte1_ventasmax.setText("");
+                break;
+            case "Reporte2":
+                textfield_reporte2_horainicio.setText("");
+                textfield_reporte2_horafin.setText("");
+                break;
         }
     }
     
@@ -187,6 +195,16 @@ public class JFrame extends javax.swing.JFrame {
                         setModel(convertQueryToComboBoxModel(query));
                 break;
         }
+    }
+    
+    public void actualizaBotones(){
+        String tabla = getSelectedTable();
+        Boolean value = tabla.equals("Reporte1") || tabla.equals("Reporte2");
+        
+        btn_agregar.setVisible(!value);
+        btn_modificar.setVisible(!value);
+        btn_eliminar.setVisible(!value);
+        btn_consultar.setVisible(value);
     }
     
     public void actualizaFormulario(int index){
@@ -364,6 +382,60 @@ public class JFrame extends javax.swing.JFrame {
         };
     }
     
+    public Boolean checkTabla(String tabla, int idx){
+        if(tabla.equals("Venta") || tabla.equals("Compra")){
+            return datagrid.getValueAt(idx, 3) == null;
+        }else{
+           return true;
+        }
+    }
+    
+    public void consultarReportes(){
+        String tabla = getSelectedTable();
+        String query = "";
+        
+        switch(tabla){
+            case "Reporte1":
+                query += "SELECT ar.Nombre, COUNT(v.IdArticulo) "
+                        + "FROM gimnasio.Articulo ar INNER JOIN "
+                            + "(SELECT * FROM gimnasio.Venta tv "
+                            + "INNER JOIN gimnasio.DetalleVenta td "
+                            + "ON tv.IdVenta = td.IdVenta) v "
+                        + "ON v.IdArticulo = ar.IdArticulo "
+                        + "GROUP BY ar.Nombre "
+                        + "HAVING (COUNT(v.IdArticulo) >= "+ 
+                        textfield_reporte1_ventasmin.getText() +" "
+                        + "AND COUNT(v.IdArticulo) <= "+
+                        textfield_reporte1_ventasmax.getText()+")";
+                break;
+            case "Reporte2":
+                query += "SELECT * FROM gimnasio.Clase c "
+                        + "INNER JOIN gimnasio.Horario h "
+                        + "ON c.IdHorario = h.IdHorario "
+                        + "WHERE c.IdHorario IN "
+                        + "(SELECT IdHorario FROM gimnasio.Horario "
+                        + "WHERE (HoraInicio >= '" 
+                        + textfield_reporte2_horainicio.getText() + "' "
+                        + "AND HoraFin <= '" 
+                        + textfield_reporte2_horafin.getText() + "'))";
+        }
+        if(!query.equals("")){
+            hazConsultaReporte(query);
+        }
+    }
+    
+    public void hazConsultaReporte(String query){
+        try{
+            if(sentencia != null){
+                ResultSet resultado = null;
+                resultado = sentencia.executeQuery(query);
+                datagrid.setModel(getTableModel(resultado));
+            }
+        }catch(Exception e){
+            datagrid.setModel(new DefaultTableModel());
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
     
     //              Métodos get Sentencias ↓
     // ---------------------------------------------------------
@@ -847,12 +919,27 @@ public class JFrame extends javax.swing.JFrame {
         combobox_detallecompra_idarticulo = new javax.swing.JComboBox<>();
         combobox_detallecompra_idcompra = new javax.swing.JComboBox<>();
         label_detallecompra2 = new javax.swing.JLabel();
+        panel_reporte1 = new javax.swing.JPanel();
+        label_horario2 = new javax.swing.JLabel();
+        textfield_reporte1_ventasmin = new javax.swing.JTextField();
+        label_horario3 = new javax.swing.JLabel();
+        textfield_reporte1_ventasmax = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        panel_reporte2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        label_hora4 = new javax.swing.JLabel();
+        textfield_reporte2_horainicio = new javax.swing.JTextField();
+        label_horario6 = new javax.swing.JLabel();
+        textfield_reporte2_horafin = new javax.swing.JTextField();
+        label_horario7 = new javax.swing.JLabel();
+        label_hora5 = new javax.swing.JLabel();
         menu = new javax.swing.JScrollPane();
         datagrid = new javax.swing.JTable();
         btn_agregar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
+        btn_consultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gimnasio DB");
@@ -1470,6 +1557,114 @@ public class JFrame extends javax.swing.JFrame {
 
         tabs.addTab("DetalleCompra", panel_detallecompra);
 
+        label_horario2.setText("Ventas Mín:");
+
+        label_horario3.setText("Ventas Max:");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Artículos con mínimo y máximo de Ventas");
+
+        javax.swing.GroupLayout panel_reporte1Layout = new javax.swing.GroupLayout(panel_reporte1);
+        panel_reporte1.setLayout(panel_reporte1Layout);
+        panel_reporte1Layout.setHorizontalGroup(
+            panel_reporte1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_reporte1Layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(label_horario2)
+                .addGap(30, 30, 30)
+                .addComponent(textfield_reporte1_ventasmin, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addComponent(label_horario3)
+                .addGap(30, 30, 30)
+                .addComponent(textfield_reporte1_ventasmax, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(180, 180, 180))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_reporte1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
+        );
+        panel_reporte1Layout.setVerticalGroup(
+            panel_reporte1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_reporte1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addGroup(panel_reporte1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_reporte1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_horario3)
+                        .addComponent(textfield_reporte1_ventasmax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_reporte1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(label_horario2)
+                        .addComponent(textfield_reporte1_ventasmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
+
+        tabs.addTab("Reporte1", panel_reporte1);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Clases entre el Rango de Horarios");
+
+        label_hora4.setText("HH:MM");
+
+        label_horario6.setText("HoraInicio:");
+
+        label_horario7.setText("HoraFin:");
+
+        label_hora5.setText("HH:MM");
+
+        javax.swing.GroupLayout panel_reporte2Layout = new javax.swing.GroupLayout(panel_reporte2);
+        panel_reporte2.setLayout(panel_reporte2Layout);
+        panel_reporte2Layout.setHorizontalGroup(
+            panel_reporte2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_reporte2Layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addGroup(panel_reporte2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_reporte2Layout.createSequentialGroup()
+                        .addComponent(label_horario6)
+                        .addGap(30, 30, 30)
+                        .addComponent(textfield_reporte2_horainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_reporte2Layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(label_hora4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                .addGroup(panel_reporte2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_reporte2Layout.createSequentialGroup()
+                        .addComponent(label_horario7)
+                        .addGap(30, 30, 30)
+                        .addComponent(textfield_reporte2_horafin, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_reporte2Layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(label_hora5)))
+                .addGap(180, 180, 180))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_reporte2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
+        );
+        panel_reporte2Layout.setVerticalGroup(
+            panel_reporte2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_reporte2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_reporte2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_reporte2Layout.createSequentialGroup()
+                        .addComponent(label_hora5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_reporte2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_horario7)
+                            .addComponent(textfield_reporte2_horafin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_reporte2Layout.createSequentialGroup()
+                        .addComponent(label_hora4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_reporte2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(label_horario6)
+                            .addComponent(textfield_reporte2_horainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
+
+        tabs.addTab("Reporte2", panel_reporte2);
+
         datagrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1513,18 +1708,17 @@ public class JFrame extends javax.swing.JFrame {
             }
         });
 
+        btn_consultar.setText("Consultar");
+        btn_consultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_consultarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
-                .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -1536,6 +1730,19 @@ public class JFrame extends javax.swing.JFrame {
                             .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_consultar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1549,16 +1756,21 @@ public class JFrame extends javax.swing.JFrame {
                     .addComponent(btn_agregar)
                     .addComponent(btn_modificar)
                     .addComponent(btn_eliminar))
-                .addGap(49, 49, 49)
+                .addGap(15, 15, 15)
+                .addComponent(btn_consultar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
+
+        btn_consultar.getAccessibleContext().setAccessibleName("Consultar");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
        if(sentencia != null){
+            actualizaBotones();
             if(llenarTabla())
                 actualizaComponentes();
             limpiarPantalla();
@@ -1574,9 +1786,21 @@ public class JFrame extends javax.swing.JFrame {
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         if(sentencia != null){
             try{
-                String sentenciaSQL = getInsertSentencia(getSelectedTable());
-                sentencia.execute(sentenciaSQL);
-                JOptionPane.showMessageDialog(this, "Agregado correctamente");
+                String tabla = getSelectedTable();
+                int dialogResult;
+                
+                if(tabla.equals("DetalleCompra") || tabla.equals("DetalleVenta")){
+                    dialogResult = JOptionPane.showConfirmDialog(null, 
+                            "Después de insertar el registro ya no se podrá modificar ni eliminar. ¿Seguro que quieres continuar?");
+                }else{
+                    dialogResult = JOptionPane.YES_OPTION;
+                }
+                
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    String sentenciaSQL = getInsertSentencia(tabla);
+                    sentencia.execute(sentenciaSQL);
+                    JOptionPane.showMessageDialog(this, "Agregado correctamente");
+                }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
                 return;
@@ -1602,9 +1826,17 @@ public class JFrame extends javax.swing.JFrame {
 
             if(idx != -1){
                 try{
-                    String sentenciaSQL = getUpdateSentencia(getSelectedTable(), idx);
-                    sentencia.execute(sentenciaSQL);
-                    JOptionPane.showMessageDialog(this, "Modificado correctamente");
+                    String tabla = getSelectedTable();
+                    
+                    if(!tabla.equals("DetalleCompra") && 
+                            !tabla.equals("DetalleVenta"))
+                    {
+                        String sentenciaSQL = getUpdateSentencia(tabla, idx);
+                        sentencia.execute(sentenciaSQL);
+                        JOptionPane.showMessageDialog(this, "Modificado correctamente");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "No se puede modificar el registro.");
+                    }
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(this, e.getMessage());
                     return;
@@ -1622,10 +1854,17 @@ public class JFrame extends javax.swing.JFrame {
             int idx = datagrid.getSelectedRow();
             if(idx != -1){
                 try{
-                    String sentenciaSQL = getDeleteSentencia(getSelectedTable(), idx);
-
-                    sentencia.execute(sentenciaSQL);
-                    JOptionPane.showMessageDialog(this, "Eliminado correctamente");
+                    String tabla = getSelectedTable();
+                    
+                    if(!tabla.equals("DetalleCompra") && !tabla.equals("DetalleVenta") && 
+                            checkTabla(tabla, idx))
+                    {
+                        String sentenciaSQL = getDeleteSentencia(tabla, idx);
+                        sentencia.execute(sentenciaSQL);
+                        JOptionPane.showMessageDialog(this, "Eliminado correctamente");
+                    }else{
+                        JOptionPane.showMessageDialog(this, "No se puede eliminar el registro.");
+                    }
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(this, e.getMessage());
                     return;
@@ -1641,6 +1880,7 @@ public class JFrame extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         llenarTabla();
         actualizaComponentes();
+        actualizaBotones();
     }//GEN-LAST:event_formWindowOpened
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
@@ -1650,6 +1890,10 @@ public class JFrame extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void btn_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarActionPerformed
+        consultarReportes();
+    }//GEN-LAST:event_btn_consultarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -1685,6 +1929,7 @@ public class JFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agregar;
+    private javax.swing.JButton btn_consultar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_modificar;
@@ -1705,6 +1950,8 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combobox_suscripcion_idempleado;
     private javax.swing.JComboBox<String> combobox_venta_idempleado;
     private javax.swing.JTable datagrid;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel label_articulo1;
     private javax.swing.JLabel label_articulo2;
     private javax.swing.JLabel label_articulo3;
@@ -1730,8 +1977,14 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel label_empleado5;
     private javax.swing.JLabel label_hora;
     private javax.swing.JLabel label_hora1;
+    private javax.swing.JLabel label_hora4;
+    private javax.swing.JLabel label_hora5;
     private javax.swing.JLabel label_horario;
     private javax.swing.JLabel label_horario1;
+    private javax.swing.JLabel label_horario2;
+    private javax.swing.JLabel label_horario3;
+    private javax.swing.JLabel label_horario6;
+    private javax.swing.JLabel label_horario7;
     private javax.swing.JLabel label_inscripcion;
     private javax.swing.JLabel label_inscripcion1;
     private javax.swing.JLabel label_pago;
@@ -1758,6 +2011,8 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panel_horario;
     private javax.swing.JPanel panel_inscripcion;
     private javax.swing.JPanel panel_pago;
+    private javax.swing.JPanel panel_reporte1;
+    private javax.swing.JPanel panel_reporte2;
     private javax.swing.JPanel panel_suscripcion;
     private javax.swing.JPanel panel_venta;
     private javax.swing.JTabbedPane tabs;
@@ -1779,6 +2034,10 @@ public class JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_horario_horainicio;
     private javax.swing.JTextField textfield_pago_fecha;
     private javax.swing.JTextField textfield_pago_total;
+    private javax.swing.JTextField textfield_reporte1_ventasmax;
+    private javax.swing.JTextField textfield_reporte1_ventasmin;
+    private javax.swing.JTextField textfield_reporte2_horafin;
+    private javax.swing.JTextField textfield_reporte2_horainicio;
     private javax.swing.JTextField textfield_suscripcion_duracion;
     private javax.swing.JTextField textfield_suscripcion_estado;
     private javax.swing.JTextField textfield_suscripcion_fecha;
