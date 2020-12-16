@@ -409,7 +409,7 @@ public class JFrame extends javax.swing.JFrame {
                         textfield_reporte1_ventasmax.getText()+")";
                 break;
             case "Reporte2":
-                query += "SELECT * FROM gimnasio.Clase c "
+                query += "SELECT IdClase, Nombre, HoraInicio, HoraFin FROM gimnasio.Clase c "
                         + "INNER JOIN gimnasio.Horario h "
                         + "ON c.IdHorario = h.IdHorario "
                         + "WHERE c.IdHorario IN "
