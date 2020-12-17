@@ -267,10 +267,16 @@ GRANT USAGE ON SCHEMA gimnasio TO empleado;
 GRANT gerente TO user_gerente;
 GRANT empleado TO user_empleado;
 
+REVOKE ALL ON ALL TABLES IN SCHEMA gimnasio FROM gerente;
+
+GRANT SELECT ON TABLE
+gimnasio.Empleado
+TO gerente;
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE 
 gimnasio.Cliente, gimnasio.Suscripcion, gimnasio.Clase, gimnasio.Inscripcion, 
 gimnasio.Horario, gimnasio.Pago, gimnasio.Venta, gimnasio.DetalleVenta, 
-gimnasio.Compra, gimnasio.DetalleCompra, gimnasio.Articulo, gimnasio.Empleado 
+gimnasio.Compra, gimnasio.DetalleCompra, gimnasio.Articulo
 TO gerente;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO gerente;
 
