@@ -289,12 +289,3 @@ gimnasio.Cliente, gimnasio.Suscripcion, gimnasio.Inscripcion, gimnasio.Pago,
 gimnasio.Venta, gimnasio.DetalleVenta, gimnasio.Compra, gimnasio.DetalleCompra TO empleado;
 
 GRANT ALL ON ALL SEQUENCES IN SCHEMA gimnasio TO empleado;
-
-
-INSERT INTO gimnasio.Venta (IdEmpleado, Fecha)
-VALUES ('1','2020-12-12');
-
-select * from gimnasio.venta;
-
-INSERT INTO gimnasio.DetalleVenta (IdVenta, IdArticulo, Cantidad)
-VALUES ('1','1','10');
